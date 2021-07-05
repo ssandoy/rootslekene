@@ -5,7 +5,6 @@ import { IntroPage } from "./features/intro";
 import { CompetitionsPage } from "./features/competitions";
 import { NavLink } from "./components/nav-link";
 import styled from "@emotion/styled";
-import { device } from "./utils/mixins";
 import { Header } from "./components/header";
 import { ContestantsPage } from "./features/contestants";
 import { LeaderboardPage } from "./features/leaderbord";
@@ -24,7 +23,6 @@ const NavContainer = styled.div`
 `;
 
 function App() {
-  // todo router
   return (
     <Router>
       <AppContainerDiv>

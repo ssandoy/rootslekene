@@ -2,6 +2,19 @@ import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { rootsVandrern } from "../../images";
 import { device } from "../../utils/mixins";
+import React, { useState } from "react";
+import Modal from "react-modal";
+
+const modalStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 const Container = styled.div`
   width: 80vw;
@@ -19,23 +32,41 @@ const Image = styled.img`
 `;
 
 const IntroPage: React.FC = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
-    <Page title="Intro">
+    <Page title="">
       <Container>
-        <div>TEST</div>
-        <Text>
-          Den 16. juli skal Rootslekene 2021 avholdes. Arrangementet finner sted
-          på Torvhaugen 11, XX.
-        </Text>
+        <Text>Lørdag 16. juli arrangeres Rootslekene 2021!</Text>
+        {/* TODO BILDE HEr. RAMME MED MYE GREOER?*/}
         <Text>
           I en prestisjefylt femkamp med varierte øvelser skal deltakerne testes
           både psykisk og fysisk, før vinneren av Rootslekene kåres. Vinneren
-          kan skilte med stor 're, samt at man tar med seg Rootsvandreren hjem
-          til evig eie i et helt [r!
+          kan skilte med stor ære, samt at man tar med seg&nbsp;
+          <span
+            style={{ textDecoration: "underline" }}
+            onClick={() => setModalOpen(true)}
+          >
+            Rootsvandreren
+          </span>
+          &nbsp;hjem til evig eie i et helt år!
         </Text>
         {/*  todo image of gutta*/}
-        {/*  todo maybe link to modal?*/}
-        <Image src={rootsVandrern} />
+        <Modal
+          isOpen={modalOpen}
+          onRequestClose={closeModal}
+          style={modalStyles}
+        >
+          <Image src={rootsVandrern} />
+          <p style={{ color: "black" }}>Rootsvandreren</p>
+          {/*<CrossIcon onClick={closeModal} />*/}
+        </Modal>
+
+        <p>Generelle regler:</p>
+        {/*  TODO create and make componet*/}
       </Container>
     </Page>
   );

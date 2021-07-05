@@ -3,14 +3,8 @@ import { Page } from "../../components/page";
 import Contestant from "./Contestant";
 import styled from "@emotion/styled";
 import { eskil, gegg, larsi, mattis, peder, rob, sander } from "../../images";
-export type ContestantType = {
-  imageUrl: string;
-  name: string;
-  age: number;
-  strength: string;
-  weakness: string;
-  somethingElse?: string;
-};
+import { ContestantType } from "./types";
+
 const CONTESTANTS: ContestantType[] = [
   {
     imageUrl: gegg,

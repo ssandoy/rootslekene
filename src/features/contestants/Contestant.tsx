@@ -1,5 +1,5 @@
 import React from "react";
-import { ContestantType } from "./ContestantsPage";
+import { ContestantType } from "./types";
 import styled from "@emotion/styled";
 
 const ContestantContainer = styled.div`
@@ -12,7 +12,7 @@ const ContestantContainer = styled.div`
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 220px;
   //align-items: center;
 `;
 
