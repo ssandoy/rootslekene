@@ -61,6 +61,7 @@ const ContestantsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 800px;
 `;
 
 const ContestantsPage: React.FC = () => {

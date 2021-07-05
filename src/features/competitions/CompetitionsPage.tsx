@@ -3,13 +3,10 @@ import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { CompetitionType } from "./types";
 import { Competition } from "./Competition";
-import { device } from "../../utils/mixins";
 
 const CompetitionsContainer = styled.div`
   display: flex;
-  @media ${device.FOR_PHONE_ONLY} {
-    flex-direction: column;
-  }
+  flex-direction: column;
 `;
 
 const COMPETITIONS: CompetitionType[] = [
