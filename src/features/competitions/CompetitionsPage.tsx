@@ -49,6 +49,13 @@ const COMPETITIONS: CompetitionType[] = [
   },
   {
     order: 3,
+    name: "Støvelkast",
+    info: "Klarer Lars Petter å kaste riktig vei denne gangen? 🥾",
+    description: "Her er det kraft og lengde som gjelder!",
+    bookieFavorite: "Ikke Mathias",
+  },
+  {
+    order: 4,
     name: "Indre klokke",
     info: "Hvem klarer å ta tiden mens man drikker? ⌛",
     description:
@@ -56,7 +63,7 @@ const COMPETITIONS: CompetitionType[] = [
     bookieFavorite: "Eirik",
   },
   {
-    order: 4,
+    order: 5,
     name: "Spiker",
     info: "Gjenstår suksessen med fjorårets intriger! 🔨",
     description: "Spikerkonkurransen med ett slag hver på rundgang",

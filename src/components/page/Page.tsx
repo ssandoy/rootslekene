@@ -13,6 +13,12 @@ const Title = styled.h2`
   color: white;
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+`;
+
 type Props = {
   title: string;
 };
@@ -21,7 +27,7 @@ const Page: React.FC<Props> = ({ title, children }) => {
   return (
     <PageDiv>
       <Title>{title}</Title>
-      {children}
+      <Container>{children}</Container>
     </PageDiv>
   );
 };

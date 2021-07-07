@@ -32,7 +32,7 @@ const CONTESTANTS: ContestantType[] = [
     name: "Sander",
     age: 28,
     strength: "Hjemmebane",
-    weakness: "TODO",
+    weakness: "Overtenning",
   },
   {
     imageUrl: eskil,
@@ -61,7 +61,6 @@ const ContestantsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 800px;
 `;
 
 const ContestantsPage: React.FC = () => {

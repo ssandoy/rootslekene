@@ -4,6 +4,10 @@ import { rootsVandrern } from "../../images";
 import { device } from "../../utils/mixins";
 import React, { useState } from "react";
 import Modal from "react-modal";
+import ReactSlickSlider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { drita, jacuzzi, robert, sorbyen } from "../../images/slideshow";
 
 const modalStyles = {
   content: {
@@ -24,12 +28,20 @@ const Text = styled.p`
 `;
 
 const Image = styled.img`
-  // todo mobile-media
   width: 50vw;
   @media ${device.FOR_PHONE_ONLY} {
     width: 240px;
   }
 `;
+
+const settings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+};
 
 const IntroPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,11 +53,16 @@ const IntroPage: React.FC = () => {
     <Page title="">
       <Container>
         <Text>Lørdag 16. juli arrangeres Rootslekene 2021!</Text>
-        {/* TODO BILDE HEr. RAMME MED MYE GREOER?*/}
+        <ReactSlickSlider {...settings}>
+          <img alt="drita" src={drita} width={200} />
+          <img alt="jac" src={jacuzzi} width={200} />
+          <img alt="rob" src={robert} width={200} />
+          <img alt="sor" src={sorbyen} width={200} />
+        </ReactSlickSlider>
         <Text>
           I en prestisjefylt femkamp med varierte øvelser skal deltakerne testes
-          både psykisk og fysisk, før vinneren av Rootslekene kåres. Vinneren
-          kan skilte med stor ære, samt at man tar med seg&nbsp;
+          både psykisk og fysisk, før vinneren av Rootslekene 2021 kåres.
+          Vinneren kan skilte med stor ære, samt at man tar med seg&nbsp;
           <span
             style={{ textDecoration: "underline" }}
             onClick={() => setModalOpen(true)}
@@ -54,7 +71,7 @@ const IntroPage: React.FC = () => {
           </span>
           &nbsp;hjem til evig eie i et helt år!
         </Text>
-        {/*  todo image of gutta*/}
+        <Text>May the games begin!</Text>
         <Modal
           isOpen={modalOpen}
           onRequestClose={closeModal}
@@ -62,7 +79,6 @@ const IntroPage: React.FC = () => {
         >
           <Image src={rootsVandrern} />
           <p style={{ color: "black" }}>Rootsvandreren</p>
-          {/*<CrossIcon onClick={closeModal} />*/}
         </Modal>
 
         <p>Generelle regler:</p>
