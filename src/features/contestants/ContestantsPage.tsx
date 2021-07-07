@@ -43,7 +43,7 @@ const CONTESTANTS: ContestantType[] = [
   },
   {
     imageUrl: larsi,
-    name: "Lars Petter",
+    name: "Larsi",
     age: 28,
     strength: "Bicepscurl",
     weakness: "Støvelkast",

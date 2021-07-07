@@ -23,7 +23,7 @@ const COMPETITIONS: CompetitionType[] = [
     info: "Hvem klarer løypa på kortest mulig tid? 🏅",
     description:
       "Her gjelder det å mestre høyt tempo, sylskarp presisjon og utømmelig alkoholtoleranse! Løypen inneholder:",
-    bookieFavorite: "Lars Petter",
+    bookieFavorite: "Larsi",
     subCompetition: [
       {
         order: 1,
@@ -50,7 +50,7 @@ const COMPETITIONS: CompetitionType[] = [
   {
     order: 3,
     name: "Støvelkast",
-    info: "Klarer Lars Petter å kaste riktig vei denne gangen? 🥾",
+    info: "Klarer Larsi å kaste riktig vei denne gangen? 🥾",
     description: "Her er det kraft og lengde som gjelder!",
     bookieFavorite: "Ikke Mathias",
   },
