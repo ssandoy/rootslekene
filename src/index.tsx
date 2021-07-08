@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Competition } from "./features/leaderbord/types";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { INDICES } from "./firebase/hooks/types";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { firestore } from "./firebase/init";
 
 ReactDOM.render(
@@ -13,7 +15,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// @eslint-disable
+// @eslint-disable-next-line
 const points = [1, 2, 3, 4, 5, 6, 7];
 
 const SANDER_ID = 1;
@@ -24,6 +26,7 @@ const LP_ID = 5;
 const ROBERT_ID = 6;
 const PEDER_ID = 7;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CONTESTANTS = [
   { id: SANDER_ID, name: "Sander", shortName: "SS" },
   { id: PEDER_ID, name: "Peder", shortName: "PO" },
@@ -76,6 +79,8 @@ const peder = {
   placement: 2,
   points: points[0],
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const COMPETITION_DATA: Competition[] = [
   {
     id: "random-id",
