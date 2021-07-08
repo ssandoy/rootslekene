@@ -4,10 +4,16 @@ import { rootsVandrern } from "../../images";
 import { device } from "../../utils/mixins";
 import React, { useState } from "react";
 import Modal from "react-modal";
-import ReactSlickSlider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { drita, jacuzzi, robert, sorbyen } from "../../images/slideshow";
+
+import {
+  drita,
+  eskil,
+  jacuzzi,
+  jacuzzi2,
+  robert,
+  spiker,
+} from "../../images/slideshow";
+import BeerIcon from "./BeerIncon";
 
 const modalStyles = {
   content: {
@@ -28,6 +34,7 @@ const Container = styled.div`
 `;
 const Text = styled.p`
   color: white;
+  text-align: center;
 `;
 
 const Image = styled.img`
@@ -45,59 +52,79 @@ const SliderContainer = styled.div`
   }
 `;
 
-const settings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: true,
-};
+const SlideContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
+// todo egen side?
+const SLIDER_LIST: { image: string; text: string }[] = [
+  { image: eskil, text: "Eskil om noen få timer" },
+  { image: drita, text: "Sveiseblind gjeng" },
+  { image: robert, text: "" },
+  { image: jacuzzi, text: "Ung og lovende" },
+  { image: jacuzzi2, text: "Ikke like ung og lovende" },
+  { image: spiker, text: "Det spikres" },
+];
 const IntroPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeModal = () => {
     setModalOpen(false);
   };
-  // todo firebase-storage instead. Loading is slowwww
   return (
     <Page title="">
       <Container>
-        <Text>Lørdag 16. juli arrangeres Rootslekene 2021!</Text>
-        <SliderContainer>
-          <ReactSlickSlider {...settings}>
-            {/* todo style*/}
-            <img alt="drita" src={drita} width={200} />
-            <img alt="jac" src={jacuzzi} width={200} />
-            <img alt="rob" src={robert} width={200} />
-            <img alt="sor" src={sorbyen} width={200} />
-          </ReactSlickSlider>
-        </SliderContainer>
+        <BeerIcon />
+        <Text style={{ marginTop: 40 }}>
+          <b>Lørdag 17. juli braker det løs!</b>
+        </Text>
         <Text>
-          I en prestisjefylt femkamp med varierte øvelser skal deltakerne testes
-          både psykisk og fysisk, før vinneren av Rootslekene 2021 kåres.
-          Vinneren kan skilte med stor ære, samt at man tar med seg&nbsp;
+          Gjennom en prestisjefylt femkamp skal vinneren av Rootslekene 2021
+          kåres.
+        </Text>
+        <Text>
+          Lekene består av et knippe varierte øvelser som vil teste utøverne
+          både fysisk og mentalt. Her gjelder å ha god kontroll på både
+          alkoholtoleranse, tenningsnivå og ikke minst koordinasjonen etter X
+          antall enheter!
+        </Text>
+        <Text>
+          Etter endt konkurranse så vil vinneren kunne smykke seg med evig ære,
+          samt at man tar med seg&nbsp;
           <span
             style={{ textDecoration: "underline" }}
             onClick={() => setModalOpen(true)}
           >
-            Rootsvandreren
+            Rootsvandrer`n
           </span>
-          &nbsp;hjem til evig eie i et helt år!
+          &nbsp;hjem til odel og eie - frem til neste års leker!
         </Text>
-        <Text>May the games begin!</Text>
+        <Text>Let the games begin!</Text>
         <Modal
           isOpen={modalOpen}
           onRequestClose={closeModal}
           style={modalStyles}
         >
           <Image src={rootsVandrern} />
-          <p style={{ color: "black" }}>Rootsvandreren</p>
+          <p style={{ color: "black" }}>Rootsvandrer`n</p>
         </Modal>
-
-        <p>Generelle regler:</p>
-        {/*  TODO create and make componet*/}
+        {/*<h3>Tidligere minner</h3>*/}
+        {/*<p>*/}
+        {/*  Her er et knippe av høydepunkter fra tidligere Rootsleker,*/}
+        {/*  Rootsfestivaler for å sette stemningen!*/}
+        {/*</p>*/}
+        {/*<SliderContainer>*/}
+        {/*  <ReactSlickSlider {...settings}>*/}
+        {/*    {SLIDER_LIST.map((slider) => (*/}
+        {/*      <SlideContainer>*/}
+        {/*        <img alt="slider" src={slider.image} width="100%" />*/}
+        {/*        <p>{slider.text}</p>*/}
+        {/*      </SlideContainer>*/}
+        {/*    ))}*/}
+        {/*  </ReactSlickSlider>*/}
+        {/*</SliderContainer>*/}
       </Container>
     </Page>
   );

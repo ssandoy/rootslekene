@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { CompetitionType } from "./types";
 import { Competition } from "./Competition";
+import ReactSlickSlider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import BeerIcon from "../intro/BeerIncon";
 
 const CompetitionsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 400px;
 `;
 
 const COMPETITIONS: CompetitionType[] = [
   {
     order: 1,
+    name: "Øksekast",
+    info: "Starter rolig for å holde risikoen nede 🪓🍻",
+    description: "Vinner Mathias så må han melde seg på Farmen",
+    bookieFavorite: "Ingen",
+  },
+  {
+    order: 2,
     name: "Team-kubb",
-    info: "Starter rolig med kubb og drikking 🌲🍻",
+    info: "Teambuilding og pilsing 🌲🍻",
     description: "Her er trikset å holde Eirik så langt unna kongen som mulig.",
     bookieFavorite: "Alle bortsett fra Eirik",
   },
   {
-    order: 2,
+    order: 3,
     name: "Øl-løypa",
     info: "Hvem klarer løypa på kortest mulig tid? 🏅",
     description:
@@ -48,14 +60,14 @@ const COMPETITIONS: CompetitionType[] = [
     ],
   },
   {
-    order: 3,
+    order: 4,
     name: "Støvelkast",
     info: "Klarer Larsi å kaste riktig vei denne gangen? 🥾",
     description: "Her er det kraft og lengde som gjelder!",
     bookieFavorite: "Ikke Mathias",
   },
   {
-    order: 4,
+    order: 5,
     name: "Indre klokke",
     info: "Hvem klarer å ta tiden mens man drikker? ⌛",
     description:

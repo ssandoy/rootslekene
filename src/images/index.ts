@@ -6,3 +6,4 @@ export { default as sander } from "./sander-min.png";
 export { default as eskil } from "./eskil-min.png";
 export { default as larsi } from "./larsi-min.png";
 export { default as mattis } from "./mattis-min.png";
+export { default as header } from "./header.png";
