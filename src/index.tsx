@@ -13,6 +13,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+// @eslint-disable
 const points = [1, 2, 3, 4, 5, 6, 7];
 
 const SANDER_ID = 1;
@@ -106,3 +107,4 @@ console.log("ADDING");
 // COMPETITION_DATA.forEach((competition) =>
 //   firestore.collection(INDICES.COMPETITIONS_TEST).doc().set(competition)
 // );
+// @eslint-enable

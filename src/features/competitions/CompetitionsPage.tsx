@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { CompetitionType } from "./types";
 import { Competition } from "./Competition";
-import ReactSlickSlider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import BeerIcon from "../intro/BeerIncon";
 
 const CompetitionsContainer = styled.div`
   display: flex;
@@ -75,10 +71,10 @@ const COMPETITIONS: CompetitionType[] = [
     bookieFavorite: "Eirik",
   },
   {
-    order: 5,
+    order: 6,
     name: "Spiker",
     info: "Gjenstår suksessen med fjorårets intriger! 🔨",
-    description: "Spikerkonkurransen med ett slag hver på rundgang",
+    description: "Spikerkonkurranse med ett slag hver på rundgang",
     bookieFavorite: "Robert",
   },
 ];

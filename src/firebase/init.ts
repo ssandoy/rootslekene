@@ -2,10 +2,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import { INDICES } from "./hooks/types";
-import { CompetitionType } from "../features/competitions/types";
-import { Competition } from "../features/leaderbord/types";
-import * as CONSTANTS from "constants";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,

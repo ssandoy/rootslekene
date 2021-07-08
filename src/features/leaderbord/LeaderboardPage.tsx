@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
-import { Competition, Result } from "./types";
+import { Competition } from "./types";
 import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
 import { ContestantType } from "../contestants/types";
@@ -21,14 +21,6 @@ const TableData = styled.td`
   padding: 8px;
   text-align: center;
 `;
-
-const competitorSum = (competitorId: number) => (results: Result[]) => {
-  results
-    .filter((result) => result.contestantId === competitorId)
-    .reduce((acc, curr) => {
-      return curr.points + acc;
-    }, 0);
-};
 
 const LeaderboardPage: React.FC = () => {
   const { isLoading: isLoadingCompetitions, collectionData: competitions } =

@@ -5,14 +5,6 @@ import { device } from "../../utils/mixins";
 import React, { useState } from "react";
 import Modal from "react-modal";
 
-import {
-  drita,
-  eskil,
-  jacuzzi,
-  jacuzzi2,
-  robert,
-  spiker,
-} from "../../images/slideshow";
 import BeerIcon from "./BeerIncon";
 
 const modalStyles = {
@@ -43,30 +35,6 @@ const Image = styled.img`
     width: 240px;
   }
 `;
-
-const SliderContainer = styled.div`
-  width: 20vw;
-  margin-bottom: 24px;
-  @media ${device.FOR_PHONE_ONLY} {
-    width: 80vw;
-  }
-`;
-
-const SlideContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-// todo egen side?
-const SLIDER_LIST: { image: string; text: string }[] = [
-  { image: eskil, text: "Eskil om noen få timer" },
-  { image: drita, text: "Sveiseblind gjeng" },
-  { image: robert, text: "" },
-  { image: jacuzzi, text: "Ung og lovende" },
-  { image: jacuzzi2, text: "Ikke like ung og lovende" },
-  { image: spiker, text: "Det spikres" },
-];
 const IntroPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -110,21 +78,6 @@ const IntroPage: React.FC = () => {
           <Image src={rootsVandrern} />
           <p style={{ color: "black" }}>Rootsvandrer`n</p>
         </Modal>
-        {/*<h3>Tidligere minner</h3>*/}
-        {/*<p>*/}
-        {/*  Her er et knippe av høydepunkter fra tidligere Rootsleker,*/}
-        {/*  Rootsfestivaler for å sette stemningen!*/}
-        {/*</p>*/}
-        {/*<SliderContainer>*/}
-        {/*  <ReactSlickSlider {...settings}>*/}
-        {/*    {SLIDER_LIST.map((slider) => (*/}
-        {/*      <SlideContainer>*/}
-        {/*        <img alt="slider" src={slider.image} width="100%" />*/}
-        {/*        <p>{slider.text}</p>*/}
-        {/*      </SlideContainer>*/}
-        {/*    ))}*/}
-        {/*  </ReactSlickSlider>*/}
-        {/*</SliderContainer>*/}
       </Container>
     </Page>
   );
