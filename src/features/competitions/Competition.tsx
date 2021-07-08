@@ -38,10 +38,10 @@ export const Competition: React.FC<Props> = ({ competition }) => {
       <SubText>{competition.description}</SubText>
       {/*   todo expandable? */}
       {competition.subCompetition?.map((subComp) => (
-        <>
+        <React.Fragment key={subComp.name}>
           <Text>{subComp.name}</Text>
           <SubText>{subComp.description}</SubText>
-        </>
+        </React.Fragment>
       ))}
       <Text>
         <b>Forhåndsfavoritt:</b> {competition.bookieFavorite}

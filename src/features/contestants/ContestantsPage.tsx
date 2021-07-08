@@ -68,7 +68,7 @@ const ContestantsPage: React.FC = () => {
     <Page title="Deltakere">
       <ContestantsWrapper>
         {CONTESTANTS.map((contestant) => (
-          <Contestant contestant={contestant} />
+          <Contestant key={contestant.name} contestant={contestant} />
         ))}
       </ContestantsWrapper>
     </Page>

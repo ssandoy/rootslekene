@@ -22,6 +22,9 @@ const modalStyles = {
 
 const Container = styled.div`
   width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const Text = styled.p`
   color: white;
@@ -31,6 +34,14 @@ const Image = styled.img`
   width: 50vw;
   @media ${device.FOR_PHONE_ONLY} {
     width: 240px;
+  }
+`;
+
+const SliderContainer = styled.div`
+  width: 20vw;
+  margin-bottom: 24px;
+  @media ${device.FOR_PHONE_ONLY} {
+    width: 80vw;
   }
 `;
 
@@ -49,16 +60,20 @@ const IntroPage: React.FC = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  // todo firebase-storage instead. Loading is slowwww
   return (
     <Page title="">
       <Container>
         <Text>Lørdag 16. juli arrangeres Rootslekene 2021!</Text>
-        <ReactSlickSlider {...settings}>
-          <img alt="drita" src={drita} width={200} />
-          <img alt="jac" src={jacuzzi} width={200} />
-          <img alt="rob" src={robert} width={200} />
-          <img alt="sor" src={sorbyen} width={200} />
-        </ReactSlickSlider>
+        <SliderContainer>
+          <ReactSlickSlider {...settings}>
+            {/* todo style*/}
+            <img alt="drita" src={drita} width={200} />
+            <img alt="jac" src={jacuzzi} width={200} />
+            <img alt="rob" src={robert} width={200} />
+            <img alt="sor" src={sorbyen} width={200} />
+          </ReactSlickSlider>
+        </SliderContainer>
         <Text>
           I en prestisjefylt femkamp med varierte øvelser skal deltakerne testes
           både psykisk og fysisk, før vinneren av Rootslekene 2021 kåres.

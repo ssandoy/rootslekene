@@ -76,7 +76,7 @@ const CompetitionsPage: React.FC = () => {
     <Page title="Konkurranser">
       <CompetitionsContainer>
         {COMPETITIONS.map((competition) => (
-          <Competition competition={competition} />
+          <Competition key={competition.name} competition={competition} />
         ))}
       </CompetitionsContainer>
     </Page>
