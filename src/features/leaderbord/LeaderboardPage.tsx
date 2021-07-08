@@ -28,7 +28,6 @@ const LeaderboardPage: React.FC = () => {
   const { isLoading: isLoadingContestants, collectionData: contestants } =
     useFirestoreCollection<ContestantType[]>(INDICES.CONTESTANTS);
   const isLoading = isLoadingCompetitions && isLoadingContestants;
-  // todo maybe store index of users and apply such
   const sortedContestants = useMemo(() => {
     return (
       contestants
@@ -69,7 +68,6 @@ const LeaderboardPage: React.FC = () => {
       ]) ?? []
     );
   }, [competitions]);
-  //
 
   return (
     <Page title="Leaderboard">
@@ -82,7 +80,9 @@ const LeaderboardPage: React.FC = () => {
               <tr>
                 <TableHeading>Øvelse</TableHeading>
                 {sortedContestants.map((contestant) => (
-                  <th key={contestant.id}>{contestant.name}</th>
+                  <th style={{ width: 30 }} key={contestant.id}>
+                    {contestant.name}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -97,7 +97,9 @@ const LeaderboardPage: React.FC = () => {
                 </tr>
               ))}
               <tr>
-                <td style={{ textAlign: "left" }}>Totalt</td>
+                <td style={{ textAlign: "left" }}>
+                  <b>Totalt</b>
+                </td>
                 {contestantPoints.map((sum, idx) => (
                   <TableData key={idx}>{sum}</TableData>
                 ))}

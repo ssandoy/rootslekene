@@ -6,7 +6,5 @@ export type Competition = {
 
 export type Result = {
   contestantId: number;
-  contestantName: string;
-  placement: number;
   points: number;
 };
