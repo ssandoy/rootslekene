@@ -2,7 +2,16 @@ import React from "react";
 import { Page } from "../../components/page";
 import Contestant from "./Contestant";
 import styled from "@emotion/styled";
-import { eskil, gegg, larsi, mattis, peder, rob, sander } from "../../images";
+import {
+  eskil,
+  gegg,
+  larsi,
+  mattis,
+  peder,
+  rob,
+  sander,
+  simon,
+} from "../../images";
 import { ContestantType } from "./types";
 
 const CONTESTANTS: ContestantType[] = [
@@ -68,6 +77,15 @@ const CONTESTANTS: ContestantType[] = [
     age: 27,
     strength: "Sprit",
     weakness: "Shots",
+  },
+  {
+    id: 8,
+    imageUrl: simon,
+    name: "Simon",
+    shortName: "SM",
+    age: 26,
+    strength: "Alder",
+    weakness: "Damer",
   },
 ];
 
