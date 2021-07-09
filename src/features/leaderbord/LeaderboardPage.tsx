@@ -89,7 +89,7 @@ const LeaderboardPage: React.FC = () => {
             <tbody>
               {rowData.map((row) => (
                 <tr key={row.toString()}>
-                  <td style={{ textAlign: "left" }}>{row[0]}</td>
+                  <TableData>{row[0]}</TableData>
                   {row.map((r, idx) => {
                     if (idx === 0) return null;
                     return <TableData key={r}>{r}</TableData>;
