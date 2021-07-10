@@ -49,7 +49,7 @@ const IntroPage: React.FC = () => {
           <b>Lørdag 17. juli braker det løs!</b>
         </Text>
         <Text>
-          Gjennom en prestisjefylt femkamp skal vinneren av Rootslekene 2021
+          Gjennom en prestisjefylt sekskamp skal vinneren av Rootslekene 2021
           kåres.
         </Text>
         <Text>
