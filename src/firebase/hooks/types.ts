@@ -7,6 +7,5 @@ export enum LOADING_STATUS {
 
 export enum INDICES {
   COMPETITIONS = "competitions",
-  COMPETITIONS_TEST = "competitions_TEST",
   CONTESTANTS = "contestants",
 }

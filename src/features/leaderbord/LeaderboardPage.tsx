@@ -24,7 +24,7 @@ const TableData = styled.td`
 
 const LeaderboardPage: React.FC = () => {
   const { isLoading: isLoadingCompetitions, collectionData: competitions } =
-    useFirestoreCollection<Competition[]>(INDICES.COMPETITIONS_TEST);
+    useFirestoreCollection<Competition[]>(INDICES.COMPETITIONS);
   const { isLoading: isLoadingContestants, collectionData: contestants } =
     useFirestoreCollection<ContestantType[]>(INDICES.CONTESTANTS);
   const isLoading = isLoadingCompetitions && isLoadingContestants;
