@@ -92,7 +92,7 @@ const LeaderboardPage: React.FC = () => {
                   <TableData>{row[0]}</TableData>
                   {row.map((r, idx) => {
                     if (idx === 0) return null;
-                    return <TableData key={r}>{r}</TableData>;
+                    return <TableData key={idx}>{r}</TableData>;
                   })}
                 </tr>
               ))}
