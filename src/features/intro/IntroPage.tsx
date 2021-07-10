@@ -30,7 +30,7 @@ const Text = styled.p`
 `;
 
 const Image = styled.img`
-  width: 50vw;
+  width: 400px;
   @media ${device.FOR_PHONE_ONLY} {
     width: 240px;
   }
