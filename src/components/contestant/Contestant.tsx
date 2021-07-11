@@ -1,5 +1,5 @@
 import React from "react";
-import { ContestantType } from "./types";
+import { ContestantType } from "../../features/contestants/types";
 import styled from "@emotion/styled";
 
 const ContestantContainer = styled.div`
@@ -29,9 +29,14 @@ const Text = styled.p`
 
 type Props = {
   contestant: ContestantType;
+  showDetails?: boolean;
 };
 
-export const Contestant: React.FC<Props> = ({ contestant }) => {
+export const Contestant: React.FC<Props> = ({
+  contestant,
+  showDetails = true,
+}) => {
+  console.log(showDetails);
   return (
     <ContestantContainer>
       <ContestantImage src={contestant.imageUrl} />
@@ -39,15 +44,19 @@ export const Contestant: React.FC<Props> = ({ contestant }) => {
         <Text style={{ textAlign: "center", marginTop: 12, marginBottom: 8 }}>
           {contestant.name}
         </Text>
-        <Text>
-          <b>Alder:</b> {contestant.age}
-        </Text>
-        <Text>
-          <b>Styrke:</b> {contestant.strength}
-        </Text>
-        <Text>
-          <b>Svakhet:</b> {contestant.weakness}
-        </Text>
+        {showDetails && (
+          <>
+            <Text>
+              <b>Alder:</b> {contestant.age}
+            </Text>
+            <Text>
+              <b>Styrke:</b> {contestant.strength}
+            </Text>
+            <Text>
+              <b>Svakhet:</b> {contestant.weakness}
+            </Text>
+          </>
+        )}
       </InfoWrapper>
     </ContestantContainer>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Page } from "../../components/page";
-import Contestant from "./Contestant";
+import { Contestant } from "../../components/contestant";
 import styled from "@emotion/styled";
 import {
   eskil,

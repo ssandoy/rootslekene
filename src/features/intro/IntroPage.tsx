@@ -6,6 +6,9 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 
 import BeerIcon from "./BeerIncon";
+import { OPEN_DATE } from "../../routes/FeatureRoute";
+
+const FEATURE_TOGGLE_GAMES_OPEN = new Date().getTime() > OPEN_DATE.getTime();
 
 const modalStyles = {
   content: {
@@ -58,26 +61,30 @@ const IntroPage: React.FC = () => {
           alkoholtoleranse, tenningsnivå og ikke minst koordinasjonen etter X
           antall enheter!
         </Text>
-        <Text>
-          Etter endt konkurranse så vil vinneren kunne smykke seg med evig ære,
-          samt at man tar med seg&nbsp;
-          <span
-            style={{ textDecoration: "underline" }}
-            onClick={() => setModalOpen(true)}
-          >
-            Rootsvandrer`n
-          </span>
-          &nbsp;hjem til odel og eie - frem til neste års leker!
-        </Text>
-        <Text>Let the games begin!</Text>
-        <Modal
-          isOpen={modalOpen}
-          onRequestClose={closeModal}
-          style={modalStyles}
-        >
-          <Image src={rootsVandrern} />
-          <p style={{ color: "black" }}>Rootsvandrer`n</p>
-        </Modal>
+        {FEATURE_TOGGLE_GAMES_OPEN && (
+          <>
+            <Text>
+              Etter endt konkurranse så vil vinneren kunne smykke seg med evig
+              ære, samt at man tar med seg&nbsp;
+              <span
+                style={{ textDecoration: "underline" }}
+                onClick={() => setModalOpen(true)}
+              >
+                Rootsvandrer`n
+              </span>
+              &nbsp;hjem til odel og eie - frem til neste års leker!
+            </Text>
+            <Text>Let the games begin!</Text>
+            <Modal
+              isOpen={modalOpen}
+              onRequestClose={closeModal}
+              style={modalStyles}
+            >
+              <Image src={rootsVandrern} />
+              <p style={{ color: "black" }}>Rootsvandrer`n</p>
+            </Modal>
+          </>
+        )}
       </Container>
     </Page>
   );

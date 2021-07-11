@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 import { Header } from "./components/header";
 import { ContestantsPage } from "./features/contestants";
 import { LeaderboardPage } from "./features/leaderbord";
+import { FeatureRoute } from "./routes";
 
 const AppContainerDiv = styled.div`
   background-color: #282c34;
@@ -35,9 +36,24 @@ function App() {
         </NavContainer>
         <Switch>
           <Route exact path={["/", "/intro"]} component={IntroPage} />
-          <Route exact path={"/konkurranser"} component={CompetitionsPage} />
-          <Route exact path={"/deltakere"} component={ContestantsPage} />
-          <Route exact path={"/sammendrag"} component={LeaderboardPage} />
+          <FeatureRoute
+            exact
+            title="Konkurranser"
+            path={"/konkurranser"}
+            component={CompetitionsPage}
+          />
+          <FeatureRoute
+            title="Deltakere"
+            exact
+            path={"/deltakere"}
+            component={ContestantsPage}
+          />
+          <FeatureRoute
+            title="Leaderboard"
+            exact
+            path={"/sammendrag"}
+            component={LeaderboardPage}
+          />
         </Switch>
       </AppContainerDiv>
     </Router>
