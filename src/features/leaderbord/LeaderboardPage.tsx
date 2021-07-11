@@ -6,8 +6,16 @@ import { Competition } from "./types";
 import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
 import { ContestantType } from "../contestants/types";
+import { Contestant } from "../../components/contestant";
 
 const LeaderboardWrapper = styled.div``;
+
+const ChampionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
 
 const Table = styled.table`
   color: white;
@@ -27,7 +35,13 @@ const LeaderboardPage: React.FC = () => {
     useFirestoreCollection<Competition[]>(INDICES.COMPETITIONS);
   const { isLoading: isLoadingContestants, collectionData: contestants } =
     useFirestoreCollection<ContestantType[]>(INDICES.CONTESTANTS);
-  const isLoading = isLoadingCompetitions && isLoadingContestants;
+
+  const { isLoading: isLoadingGameOver, collectionData: isGameOverList } =
+    useFirestoreCollection<ContestantType[]>(INDICES.GAME_OVER);
+
+  const isLoading =
+    isLoadingCompetitions || isLoadingContestants || isLoadingGameOver;
+
   const sortedContestants = useMemo(() => {
     return (
       contestants
@@ -69,43 +83,64 @@ const LeaderboardPage: React.FC = () => {
     );
   }, [competitions]);
 
+  const champion = isGameOverList?.[0]
+    ? contestants?.[
+        contestantPoints.indexOf(
+          contestantPoints.reduce((highest = 0, curr = 0) => {
+            if (curr > highest) {
+              return curr;
+            }
+            return highest;
+          }, 0)
+        )
+      ]
+    : null;
+
   return (
     <Page title="Leaderboard">
       <LeaderboardWrapper>
         {isLoading ? (
           <Spinner />
         ) : (
-          <Table>
-            <thead>
-              <tr>
-                <TableHeading>Øvelse</TableHeading>
-                {sortedContestants.map((contestant) => (
-                  <th style={{ width: 30 }} key={contestant.id}>
-                    {contestant.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rowData.map((row) => (
-                <tr key={row.toString()}>
-                  <TableData>{row[0]}</TableData>
-                  {row.map((r, idx) => {
-                    if (idx === 0) return null;
-                    return <TableData key={idx}>{r}</TableData>;
-                  })}
+          <>
+            <Table>
+              <thead>
+                <tr>
+                  <TableHeading>Øvelse</TableHeading>
+                  {sortedContestants.map((contestant) => (
+                    <th style={{ width: 30 }} key={contestant.id}>
+                      {contestant.name}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-              <tr>
-                <td style={{ textAlign: "left" }}>
-                  <b>Totalt</b>
-                </td>
-                {contestantPoints.map((sum, idx) => (
-                  <TableData key={idx}>{sum}</TableData>
+              </thead>
+              <tbody>
+                {rowData.map((row) => (
+                  <tr key={row.toString()}>
+                    <TableData>{row[0]}</TableData>
+                    {row.map((r, idx) => {
+                      if (idx === 0) return null;
+                      return <TableData key={idx}>{r}</TableData>;
+                    })}
+                  </tr>
                 ))}
-              </tr>
-            </tbody>
-          </Table>
+                <tr>
+                  <td style={{ textAlign: "left" }}>
+                    <b>Totalt</b>
+                  </td>
+                  {contestantPoints.map((sum, idx) => (
+                    <TableData key={idx}>{sum}</TableData>
+                  ))}
+                </tr>
+              </tbody>
+            </Table>
+            {champion && (
+              <ChampionWrapper>
+                <h3 style={{ color: "gold" }}>🏆 2021 CHAMPION🏆</h3>
+                <Contestant contestant={champion} showDetails={false} />
+              </ChampionWrapper>
+            )}
+          </>
         )}
       </LeaderboardWrapper>
     </Page>

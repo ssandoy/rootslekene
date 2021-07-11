@@ -2,92 +2,10 @@ import React from "react";
 import { Page } from "../../components/page";
 import { Contestant } from "../../components/contestant";
 import styled from "@emotion/styled";
-import {
-  eskil,
-  gegg,
-  larsi,
-  mattis,
-  peder,
-  rob,
-  sander,
-  simon,
-} from "../../images";
 import { ContestantType } from "./types";
-
-const CONTESTANTS: ContestantType[] = [
-  {
-    id: 1,
-    imageUrl: gegg,
-    name: "Eirik",
-    shortName: "EW",
-    age: 28,
-    strength: "Selvtillit",
-    weakness: "Selvinnsikt",
-  },
-  {
-    id: 2,
-    imageUrl: rob,
-    name: "Robert",
-    shortName: "RN",
-    age: 28,
-    strength: "Alkoholtoleranse",
-    weakness: "Alkoholtoleranse",
-  },
-  {
-    id: 3,
-    imageUrl: peder,
-    name: "Peder",
-    shortName: "PO",
-    age: 28,
-    strength: "Farsinnstinkt",
-    weakness: "Sprit",
-  },
-  {
-    id: 4,
-    imageUrl: sander,
-    name: "Sander",
-    shortName: "SS",
-    age: 28,
-    strength: "Hjemmebane",
-    weakness: "Overtenning",
-  },
-  {
-    id: 5,
-    imageUrl: eskil,
-    name: "Eskil",
-    shortName: "ES",
-    age: 27,
-    strength: "Sta",
-    weakness: "Sta",
-  },
-  {
-    id: 6,
-    imageUrl: larsi,
-    name: "Larsi",
-    shortName: "LP",
-    age: 28,
-    strength: "Bicepscurl",
-    weakness: "Støvelkast",
-  },
-  {
-    id: 7,
-    imageUrl: mattis,
-    name: "Mathias",
-    shortName: "MD",
-    age: 27,
-    strength: "Sprit",
-    weakness: "Shots",
-  },
-  {
-    id: 8,
-    imageUrl: simon,
-    name: "Simon",
-    shortName: "SM",
-    age: 26,
-    strength: "Alder",
-    weakness: "Damer",
-  },
-];
+import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
+import { INDICES } from "../../firebase/hooks/types";
+import Spinner from "../../components/spinner/Spinner";
 
 const ContestantsWrapper = styled.div`
   display: flex;
@@ -96,10 +14,15 @@ const ContestantsWrapper = styled.div`
 `;
 
 const ContestantsPage: React.FC = () => {
+  const { isLoading, collectionData: contestants } = useFirestoreCollection<
+    ContestantType[]
+  >(INDICES.CONTESTANTS);
+
   return (
     <Page title="Deltakere">
       <ContestantsWrapper>
-        {CONTESTANTS.map((contestant) => (
+        {isLoading && <Spinner />}
+        {contestants?.map((contestant) => (
           <Contestant key={contestant.name} contestant={contestant} />
         ))}
       </ContestantsWrapper>

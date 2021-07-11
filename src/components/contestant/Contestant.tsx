@@ -1,6 +1,26 @@
 import React from "react";
 import { ContestantType } from "../../features/contestants/types";
 import styled from "@emotion/styled";
+import {
+  eskil,
+  gegg,
+  larsi,
+  mattis,
+  peder,
+  rob,
+  sander,
+  simon,
+} from "../../images";
+import {
+  EIRIK_ID,
+  ESKIL_ID,
+  LP_ID,
+  MATHIAS_ID,
+  PEDER_ID,
+  ROBERT_ID,
+  SANDER_ID,
+  SIMON_ID,
+} from "../../index";
 
 const ContestantContainer = styled.div`
   display: flex;
@@ -32,14 +52,35 @@ type Props = {
   showDetails?: boolean;
 };
 
+function getImageUrl(imageUrl: number) {
+  switch (imageUrl) {
+    case SANDER_ID:
+      return sander;
+    case EIRIK_ID:
+      return gegg;
+    case LP_ID:
+      return larsi;
+    case MATHIAS_ID:
+      return mattis;
+    case ROBERT_ID:
+      return rob;
+    case SIMON_ID:
+      return simon;
+    case ESKIL_ID:
+      return eskil;
+    case PEDER_ID:
+      return peder;
+  }
+  return "";
+}
+
 export const Contestant: React.FC<Props> = ({
   contestant,
   showDetails = true,
 }) => {
-  console.log(showDetails);
   return (
     <ContestantContainer>
-      <ContestantImage src={contestant.imageUrl} />
+      <ContestantImage src={getImageUrl(contestant.id)} />
       <InfoWrapper>
         <Text style={{ textAlign: "center", marginTop: 12, marginBottom: 8 }}>
           {contestant.name}

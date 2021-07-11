@@ -8,4 +8,5 @@ export enum LOADING_STATUS {
 export enum INDICES {
   COMPETITIONS = "competitions",
   CONTESTANTS = "contestants",
+  GAME_OVER = "game_over",
 }
