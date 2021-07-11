@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 import { Header } from "./components/header";
 import { ContestantsPage } from "./features/contestants";
 import { LeaderboardPage } from "./features/leaderbord";
+import { TeamShufflingPage } from "./features/team-shuffler";
 import { FeatureRoute } from "./routes";
 
 const AppContainerDiv = styled.div`
@@ -53,6 +54,12 @@ function App() {
             exact
             path={"/sammendrag"}
             component={LeaderboardPage}
+          />
+          <FeatureRoute
+            title="Lagvelger"
+            exact
+            path={"/lagvelger"}
+            component={TeamShufflingPage}
           />
         </Switch>
       </AppContainerDiv>
