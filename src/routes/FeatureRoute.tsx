@@ -24,7 +24,7 @@ const Title = styled.h2`
   color: white;
 `;
 
-export const OPEN_DATE = new Date("July 16, 2021 19:30:00");
+export const OPEN_DATE = new Date("July 16, 2021 20:00:00");
 
 const renderer = ({
   days,
@@ -39,8 +39,9 @@ const renderer = ({
     return (
       <CountdownWrapper>
         <Title>{title}</Title>
-        <h5 style={{ color: "white", textAlign: "center" }}>
-          Fredag 16. juli kl 1930 offentliggjøres deltakerliste og konkurranser!
+        <h5 style={{ color: "white", textAlign: "center", margin: 24 }}>
+          Fredag 16. juli kl. 20:00 offentliggjøres deltakerliste og
+          konkurranser!
         </h5>
         <HorinzontalLine />
         <p>
