@@ -1,10 +1,11 @@
 const size = {
   PHONE: "599px",
   // todo assert
-  TABLET_PORTRAIT_UP: "768px",
+  TABLET: "800px",
 };
 
 export const device = {
   FOR_PHONE_ONLY: `(max-width: ${size.PHONE})`,
-  FOR_TABLET_PORTRAIT_UP: `(min-width: ${size.TABLET_PORTRAIT_UP})`,
+  FOR_TABLET_PORTRAIT_UP: `(min-width: ${size.TABLET})`,
+  FOR_TABLET_PORTRAIT_DOWN: `(max-width: ${size.TABLET})`,
 };

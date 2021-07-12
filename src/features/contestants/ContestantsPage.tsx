@@ -6,11 +6,15 @@ import { ContestantType } from "./types";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
+import { device } from "../../utils/mixins";
 
 const ContestantsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  @media ${device.FOR_TABLET_PORTRAIT_DOWN} {
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const ContestantsPage: React.FC = () => {

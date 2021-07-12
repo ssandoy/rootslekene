@@ -14,7 +14,7 @@ const COMPETITIONS: CompetitionType[] = [
   {
     order: 1,
     name: "Øksekast 🪓",
-    info: "Starter her for å holde risikoen nede",
+    info: "Starter her for å slippe tur til legevakta",
     description: "Vinner Mathias så må han melde seg på Farmen",
     bookieFavorite: "Ingen",
   },
@@ -22,16 +22,24 @@ const COMPETITIONS: CompetitionType[] = [
     order: 2,
     name: "Team-kubb 🌲🍻",
     info: "Teambuilding og pilsing",
-    description: "Her er trikset å holde Eirik så langt unna kongen som mulig.",
+    description:
+      "Her er trikset å holde Eirik så langt unna kongen som mulig (Blir det styrtregn kjører vi beer-pong inne)",
     bookieFavorite: "Alle bortsett fra Eirik",
   },
   {
     order: 3,
+    name: "Spiker 🔨",
+    info: "Gjenstår suksessen med fjorårets intriger!",
+    description: "Spikerkonkurranse med ett slag hver på rundgang",
+    bookieFavorite: "Robert",
+  },
+  {
+    order: 4,
     name: "Øl-løypa 🍻🏅",
     info: "Hvem klarer løypa på kortest mulig tid?",
     description:
       "Her gjelder det å mestre høyt tempo, sylskarp presisjon og utømmelig alkoholtoleranse! Løypen inneholder:",
-    bookieFavorite: "Larsi",
+    bookieFavorite: "Beerpong-Simon",
     subCompetition: [
       {
         order: 1,
@@ -56,14 +64,22 @@ const COMPETITIONS: CompetitionType[] = [
     ],
   },
   {
-    order: 4,
+    order: 5,
+    name: "Blind-frisbeegolf 🧑‍🦯🥏",
+    info: "",
+    description:
+      "To og to på lag, den ene må forklare til den andre hvor kurven er!",
+    bookieFavorite: "Peder og Eskil som duo",
+  },
+  {
+    order: 6,
     name: "Støvelkast 🥾",
     info: "Klarer Larsi å kaste riktig vei denne gangen?",
     description: "Her er det kraft og lengde som gjelder!",
-    bookieFavorite: "Ikke Mathias",
+    bookieFavorite: "Ikke Larsi",
   },
   {
-    order: 5,
+    order: 7,
     name: "Indre klokke ⌛",
     info: "Hvem klarer å ta tiden mens man drikker?",
     description:
@@ -71,11 +87,10 @@ const COMPETITIONS: CompetitionType[] = [
     bookieFavorite: "Eirik",
   },
   {
-    order: 6,
-    name: "Spiker 🔨",
-    info: "Gjenstår suksessen med fjorårets intriger!",
-    description: "Spikerkonkurranse med ett slag hver på rundgang",
-    bookieFavorite: "Robert",
+    order: 8,
+    name: "Sudden Death: Melkespann 🥛🗑",
+    info: "Ved uavgjort etter syv leker!",
+    description: "Hvem vil det mest?",
   },
 ];
 
