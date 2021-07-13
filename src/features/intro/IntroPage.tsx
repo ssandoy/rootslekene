@@ -65,7 +65,7 @@ const IntroPage: React.FC = () => {
             style={{ textDecoration: "underline" }}
             onClick={() => setModalOpen(true)}
           >
-            Rootsvandrer`n
+            Rootsvandrer'n
           </span>
           &nbsp;hjem til odel og eie - frem til neste års leker!
         </Text>
@@ -76,7 +76,7 @@ const IntroPage: React.FC = () => {
           style={modalStyles}
         >
           <Image src={rootsVandrern} />
-          <p style={{ color: "black" }}>Rootsvandrer`n</p>
+          <p style={{ color: "black" }}>Rootsvandrer'n</p>
         </Modal>
       </Container>
     </Page>
