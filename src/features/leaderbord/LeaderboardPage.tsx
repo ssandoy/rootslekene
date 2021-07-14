@@ -7,6 +7,7 @@ import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
 import { ContestantType } from "../contestants/types";
 import { Contestant } from "../../components/contestant";
+import { device } from "../../utils/mixins";
 
 const LeaderboardWrapper = styled.div``;
 
@@ -28,6 +29,9 @@ const TableHeading = styled.th`
 const TableData = styled.td`
   padding: 8px;
   text-align: center;
+  @media ${device.FOR_TABLET_PORTRAIT_UP} {
+    width: 42px;
+  }
 `;
 
 const LeaderboardPage: React.FC = () => {
@@ -108,9 +112,7 @@ const LeaderboardPage: React.FC = () => {
                 <tr>
                   <TableHeading>Øvelse</TableHeading>
                   {sortedContestants.map((contestant) => (
-                    <th style={{ width: 30 }} key={contestant.id}>
-                      {contestant.name}
-                    </th>
+                    <th key={contestant.id}>{contestant.name}</th>
                   ))}
                 </tr>
               </thead>

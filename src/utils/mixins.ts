@@ -1,7 +1,6 @@
 const size = {
   PHONE: "599px",
-  // todo assert
-  TABLET: "800px",
+  TABLET: "768px",
 };
 
 export const device = {
