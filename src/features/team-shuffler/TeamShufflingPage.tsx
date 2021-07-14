@@ -98,13 +98,15 @@ const TeamShufflingPage: React.FC = () => {
           <Button onClick={() => setTeams(false)}>4 v 4</Button>
         </ButtonGroup>
         {!hasShuffled ? (
-          contestants?.map((contestant) => (
-            <Contestant
-              key={contestant.id}
-              showDetails={false}
-              contestant={contestant as ContestantType}
-            />
-          ))
+          <ContestantWrapper>
+            {contestants?.map((contestant) => (
+              <Contestant
+                key={contestant.id}
+                showDetails={false}
+                contestant={contestant as ContestantType}
+              />
+            ))}
+          </ContestantWrapper>
         ) : (
           <TeamsWrapper>
             <TeamWrapper>
