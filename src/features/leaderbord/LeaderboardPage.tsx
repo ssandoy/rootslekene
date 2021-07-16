@@ -130,9 +130,12 @@ const LeaderboardPage: React.FC = () => {
                   <td style={{ textAlign: "left" }}>
                     <b>Totalt</b>
                   </td>
-                  {contestantPoints.map((sum, idx) => (
-                    <TableData key={idx}>{sum}</TableData>
-                  ))}
+                  {contestantPoints.map((sum, idx) => {
+                    if (idx === 5) {
+                      return <TableData key={idx}>{-2}</TableData>;
+                    }
+                    return <TableData key={idx}>{sum}</TableData>;
+                  })}
                 </tr>
               </tbody>
             </Table>
