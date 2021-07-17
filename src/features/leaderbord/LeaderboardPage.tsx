@@ -138,7 +138,7 @@ const LeaderboardPage: React.FC = () => {
             </Table>
             {champion && (
               <ChampionWrapper>
-                <h3 style={{ color: "gold" }}>🏆 2021 CHAMPION🏆</h3>
+                <h3 style={{ color: "gold" }}>🏆 2021 CHAMPION 🏆</h3>
                 <Contestant contestant={champion} showDetails={false} />
               </ChampionWrapper>
             )}
