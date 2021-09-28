@@ -11,16 +11,15 @@ import { device } from "../../utils/mixins";
 const ContestantsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   @media ${device.FOR_TABLET_PORTRAIT_DOWN} {
     flex-direction: column;
-    justify-content: center;
   }
 `;
 
 const ContestantsPage: React.FC = () => {
-  const { isLoading, collectionData: contestants } = useFirestoreCollection<
-    ContestantType[]
-  >(INDICES.CONTESTANTS);
+  const { isLoading, collectionData: contestants } =
+    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS);
 
   return (
     <Page title="Deltakere">

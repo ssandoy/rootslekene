@@ -57,9 +57,8 @@ const Button = styled.button`
 `;
 
 const TeamShufflingPage: React.FC = () => {
-  const { collectionData: contestants } = useFirestoreCollection<
-    ContestantType[]
-  >(INDICES.CONTESTANTS);
+  const { collectionData: contestants } =
+    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS);
   const [team1, setTeam1] = useState<TeamContestant[]>([]);
   const [team2, setTeam2] = useState<TeamContestant[]>([]);
   const [team3, setTeam3] = useState<TeamContestant[]>([]);

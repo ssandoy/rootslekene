@@ -36,12 +36,12 @@ const TableData = styled.td`
 
 const LeaderboardPage: React.FC = () => {
   const { isLoading: isLoadingCompetitions, collectionData: competitions } =
-    useFirestoreCollection<Competition[]>(INDICES.COMPETITIONS);
+    useFirestoreCollection<Competition>(INDICES.COMPETITIONS);
   const { isLoading: isLoadingContestants, collectionData: contestants } =
-    useFirestoreCollection<ContestantType[]>(INDICES.CONTESTANTS);
+    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS);
 
   const { isLoading: isLoadingGameOver, collectionData: isGameOverList } =
-    useFirestoreCollection<ContestantType[]>(INDICES.GAME_OVER);
+    useFirestoreCollection<ContestantType>(INDICES.GAME_OVER);
 
   const isLoading =
     isLoadingCompetitions || isLoadingContestants || isLoadingGameOver;

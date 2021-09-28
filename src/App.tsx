@@ -10,6 +10,13 @@ import { ContestantsPage } from "./features/contestants";
 import { LeaderboardPage } from "./features/leaderbord";
 import { TeamShufflingPage } from "./features/team-shuffler";
 import { FeatureRoute } from "./routes";
+import {
+  COMPETITIONS_ROUTE,
+  CONTESTANTS_ROUTE,
+  INTRO_ROUTE,
+  LEADERBOARD_ROUTE,
+  TEAM_SHUFFLER_ROUTE,
+} from "./routes/routes";
 
 const AppContainerDiv = styled.div`
   background-color: #282c34;
@@ -30,35 +37,35 @@ function App() {
       <AppContainerDiv>
         <Header />
         <NavContainer>
-          <NavLink route={"/intro"} title="Info" />
-          <NavLink route={"/konkurranser"} title="Konkurranser" />
-          <NavLink route={"/deltakere"} title="Deltakere" />
-          <NavLink route={"/sammendrag"} title="Leaderboard" />
+          <NavLink route={INTRO_ROUTE} title="Info" />
+          <NavLink route={COMPETITIONS_ROUTE} title="Konkurranser" />
+          <NavLink route={CONTESTANTS_ROUTE} title="Deltakere" />
+          <NavLink route={LEADERBOARD_ROUTE} title="Leaderboard" />
         </NavContainer>
         <Switch>
-          <Route exact path={["/", "/intro"]} component={IntroPage} />
+          <Route exact path={["/", INTRO_ROUTE]} component={IntroPage} />
           <FeatureRoute
             exact
             title="Konkurranser"
-            path={"/konkurranser"}
+            path={COMPETITIONS_ROUTE}
             component={CompetitionsPage}
           />
           <FeatureRoute
             title="Deltakere"
             exact
-            path={"/deltakere"}
+            path={CONTESTANTS_ROUTE}
             component={ContestantsPage}
           />
           <FeatureRoute
             title="Leaderboard"
             exact
-            path={"/sammendrag"}
+            path={LEADERBOARD_ROUTE}
             component={LeaderboardPage}
           />
           <FeatureRoute
             title="Lagvelger"
             exact
-            path={"/lagvelger"}
+            path={TEAM_SHUFFLER_ROUTE}
             component={TeamShufflingPage}
           />
         </Switch>
