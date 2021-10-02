@@ -2,11 +2,14 @@ import React from "react";
 import { Page } from "../../components/page";
 import { Contestant } from "../../components/contestant";
 import styled from "@emotion/styled";
-import { ContestantType } from "./types";
+import { Contestant as ContestantType } from "../../firebase/types";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
 import { device } from "../../utils/mixins";
+import { useYearContext } from "../../context/YearContext";
+import { ToBeAnnounced } from "../../components/to-be-announced";
+import { SmallText } from "../../styles";
 
 const ContestantsWrapper = styled.div`
   display: flex;
@@ -17,18 +20,31 @@ const ContestantsWrapper = styled.div`
   }
 `;
 
-const ContestantsPage: React.FC = () => {
+const Contestants: React.FC = () => {
+  // todo check for selectedYear when fetching when data is open
   const { isLoading, collectionData: contestants } =
-    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS);
+    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
+  return (
+    <ContestantsWrapper>
+      {isLoading && <Spinner />}
+      {contestants?.map((contestant) => (
+        <Contestant key={contestant.name} contestant={contestant} />
+      ))}
+    </ContestantsWrapper>
+  );
+};
 
+const ContestantsPage: React.FC = () => {
+  const { selectedYear } = useYearContext();
   return (
     <Page title="Deltakere">
-      <ContestantsWrapper>
-        {isLoading && <Spinner />}
-        {contestants?.map((contestant) => (
-          <Contestant key={contestant.name} contestant={contestant} />
-        ))}
-      </ContestantsWrapper>
+      {selectedYear === "2021" ? (
+        <Contestants />
+      ) : (
+        <ToBeAnnounced>
+          <SmallText>Oppdatert deltakerliste og informasjon kommer</SmallText>
+        </ToBeAnnounced>
+      )}
     </Page>
   );
 };

@@ -2,12 +2,17 @@ import React, { useMemo } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
-import { Competition } from "./types";
 import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
-import { ContestantType } from "../contestants/types";
 import { Contestant } from "../../components/contestant";
 import { device } from "../../utils/mixins";
+import { useYearContext } from "../../context/YearContext";
+import {
+  Competition,
+  Contestant as ContestantType,
+} from "../../firebase/types";
+import { ToBeAnnounced } from "../../components/to-be-announced";
+import { SmallText } from "../../styles";
 
 const LeaderboardWrapper = styled.div``;
 
@@ -34,14 +39,17 @@ const TableData = styled.td`
   }
 `;
 
-const LeaderboardPage: React.FC = () => {
-  const { isLoading: isLoadingCompetitions, collectionData: competitions } =
-    useFirestoreCollection<Competition>(INDICES.COMPETITIONS);
-  const { isLoading: isLoadingContestants, collectionData: contestants } =
-    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS);
+const Link = styled.a`
+  color: white;
+`;
 
+const Leaderboard: React.FC = () => {
+  const { isLoading: isLoadingCompetitions, collectionData: competitions } =
+    useFirestoreCollection<Competition>(INDICES.COMPETITIONS_PROD_2021);
+  const { isLoading: isLoadingContestants, collectionData: contestants } =
+    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
   const { isLoading: isLoadingGameOver, collectionData: isGameOverList } =
-    useFirestoreCollection<ContestantType>(INDICES.GAME_OVER);
+    useFirestoreCollection<ContestantType>(INDICES.GAME_OVER_PROD_2021);
 
   const isLoading =
     isLoadingCompetitions || isLoadingContestants || isLoadingGameOver;
@@ -49,102 +57,127 @@ const LeaderboardPage: React.FC = () => {
   const sortedContestants = useMemo(() => {
     return (
       contestants
-        ?.map((contestant) => ({
-          name: contestant.shortName,
-          id: contestant.id,
-        }))
+        ?.map((contestant) => {
+          const totalPoints = competitions?.reduce((acc, curr) => {
+            return (
+              // todo function for this
+              acc +
+              (curr.results?.find(
+                (result) => result.contestantId === contestant.id
+              )?.points ?? 0)
+            );
+          }, 0);
+          return {
+            name: contestant.shortName,
+            id: contestant.id,
+            totalPoints,
+          };
+        })
         .sort((contestantA, contestantB) => contestantA.id - contestantB.id) ??
       []
     );
   }, [contestants]);
 
-  const contestantPoints = useMemo(() => {
-    return (
-      sortedContestants
-        .map((contestant) => contestant.id)
-        .map((contestantId) =>
-          competitions?.reduce((acc, curr) => {
-            return (
-              (curr.results.find(
-                (result) => result.contestantId === contestantId
-              )?.points ?? 0) + acc
-            );
-          }, 0)
-        ) ?? []
-    );
-  }, [competitions, sortedContestants]);
-
   const rowData = useMemo(() => {
     return (
-      competitions?.map((competition) => [
-        competition.name,
-        ...competition.results
-          .sort(
-            (resultA, resultB) => resultA.contestantId - resultB.contestantId
-          )
-          .map((result) => result.points),
-      ]) ?? []
+      competitions?.map((competition) => {
+        const results = competition.results ?? [];
+        return [
+          competition.icon,
+          ...results
+            .sort(
+              (resultA, resultB) => resultA.contestantId - resultB.contestantId
+            )
+            .map((result) => result.points),
+        ];
+      }) ?? []
     );
   }, [competitions]);
 
+  // todo domain functions for these
   const champion = isGameOverList?.[0]
-    ? contestants?.[
-        contestantPoints.indexOf(
-          contestantPoints.reduce((highest = 0, curr = 0) => {
-            if (curr > highest) {
-              return curr;
-            }
-            return highest;
-          }, 0)
-        )
-      ]
+    ? contestants?.find(
+        (contestant) =>
+          contestant.id ===
+          sortedContestants.reduce(
+            (topScorer, currContestant) => {
+              if (
+                (currContestant.totalPoints ?? 0) > (topScorer.totalPoints ?? 0)
+              ) {
+                return currContestant;
+              }
+              return topScorer;
+            },
+            { totalPoints: 0, id: 0, name: "init" }
+          ).id
+      )
     : null;
 
   return (
-    <Page title="Leaderboard">
-      <LeaderboardWrapper>
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Table>
-              <thead>
-                <tr>
-                  <TableHeading>Øvelse</TableHeading>
-                  {sortedContestants.map((contestant) => (
-                    <th key={contestant.id}>{contestant.name}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rowData.map((row) => (
-                  <tr key={row.toString()}>
-                    <TableData>{row[0]}</TableData>
-                    {row.map((r, idx) => {
-                      if (idx === 0) return null;
-                      return <TableData key={idx}>{r}</TableData>;
-                    })}
-                  </tr>
+    <LeaderboardWrapper>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Table>
+            <thead>
+              <tr>
+                <TableHeading>Øvelse</TableHeading>
+                {sortedContestants.map((contestant) => (
+                  <th key={contestant.id}>{contestant.name}</th>
                 ))}
-                <tr>
-                  <td style={{ textAlign: "left" }}>
-                    <b>Totalt</b>
-                  </td>
-                  {contestantPoints.map((sum, idx) => (
-                    <TableData key={idx}>{sum}</TableData>
-                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rowData.map((row) => (
+                <tr key={row.toString()}>
+                  {row.map((r, idx) => {
+                    return <TableData key={idx}>{r}</TableData>;
+                  })}
                 </tr>
-              </tbody>
-            </Table>
-            {champion && (
-              <ChampionWrapper>
-                <h3 style={{ color: "gold" }}>🏆 2021 CHAMPION 🏆</h3>
-                <Contestant contestant={champion} showDetails={false} />
-              </ChampionWrapper>
-            )}
-          </>
-        )}
-      </LeaderboardWrapper>
+              ))}
+              <tr>
+                <td style={{ textAlign: "left" }}>
+                  <b>Totalt</b>
+                </td>
+                {sortedContestants.map((contestant, idx) => (
+                  <TableData key={idx}>{contestant?.totalPoints}</TableData>
+                ))}
+              </tr>
+            </tbody>
+          </Table>
+          {champion && (
+            <ChampionWrapper>
+              <h3 style={{ color: "gold" }}>🏆 2021 CHAMPION 🏆</h3>
+              <Contestant contestant={champion} showDetails={false} />
+            </ChampionWrapper>
+          )}
+        </>
+      )}
+    </LeaderboardWrapper>
+  );
+};
+
+const LeaderboardPage: React.FC = () => {
+  const { selectedYear } = useYearContext();
+
+  return (
+    <Page title="Leaderboard">
+      {selectedYear === "2021" ? (
+        <Leaderboard />
+      ) : (
+        <ToBeAnnounced>
+          <SmallText>
+            Neste års konkurranser klekkes for øyeblikket ut!
+          </SmallText>
+          <SmallText>
+            Forslag til leker kan sendes inn{" "}
+            <Link target="_blank" href="https://forms.gle/Nf25W8cBkwP9E8gs7">
+              her
+            </Link>
+          </SmallText>
+        </ToBeAnnounced>
+      )}
     </Page>
   );
 };
