@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { Contestant } from "../../components/contestant";
-import { ContestantType } from "../contestants/types";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
-
-type TeamContestant = {
-  id: number;
-  imageUrl: string;
-  name: string;
-};
+import { Contestant as ContestantType } from "../../firebase/types";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -58,11 +52,11 @@ const Button = styled.button`
 
 const TeamShufflingPage: React.FC = () => {
   const { collectionData: contestants } =
-    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS);
-  const [team1, setTeam1] = useState<TeamContestant[]>([]);
-  const [team2, setTeam2] = useState<TeamContestant[]>([]);
-  const [team3, setTeam3] = useState<TeamContestant[]>([]);
-  const [team4, setTeam4] = useState<TeamContestant[]>([]);
+    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
+  const [team1, setTeam1] = useState<ContestantType[]>([]);
+  const [team3, setTeam3] = useState<ContestantType[]>([]);
+  const [team2, setTeam2] = useState<ContestantType[]>([]);
+  const [team4, setTeam4] = useState<ContestantType[]>([]);
   const [hasShuffled, setHasShuffled] = useState(false);
 
   function setTeams(setFourTeams: boolean) {
@@ -102,7 +96,7 @@ const TeamShufflingPage: React.FC = () => {
               <Contestant
                 key={contestant.id}
                 showDetails={false}
-                contestant={contestant as ContestantType}
+                contestant={contestant}
               />
             ))}
           </ContestantWrapper>
@@ -114,7 +108,7 @@ const TeamShufflingPage: React.FC = () => {
                 {team1.map((contestant) => (
                   <Contestant
                     key={contestant.id}
-                    contestant={contestant as ContestantType}
+                    contestant={contestant}
                     showDetails={false}
                   />
                 ))}
@@ -126,7 +120,7 @@ const TeamShufflingPage: React.FC = () => {
                 {team2.map((contestant) => (
                   <Contestant
                     key={contestant.id}
-                    contestant={contestant as ContestantType}
+                    contestant={contestant}
                     showDetails={false}
                   />
                 ))}
@@ -139,7 +133,7 @@ const TeamShufflingPage: React.FC = () => {
                   {team3.map((contestant) => (
                     <Contestant
                       key={contestant.id}
-                      contestant={contestant as ContestantType}
+                      contestant={contestant}
                       showDetails={false}
                     />
                   ))}
@@ -153,7 +147,7 @@ const TeamShufflingPage: React.FC = () => {
                   {team4.map((contestant) => (
                     <Contestant
                       key={contestant.id}
-                      contestant={contestant as ContestantType}
+                      contestant={contestant}
                       showDetails={false}
                     />
                   ))}

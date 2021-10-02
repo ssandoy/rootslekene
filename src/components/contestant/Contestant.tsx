@@ -1,5 +1,5 @@
 import React from "react";
-import { ContestantType } from "../../features/contestants/types";
+import { Contestant as ContestantType } from "../../firebase/types";
 import styled from "@emotion/styled";
 import {
   eskil,
@@ -53,6 +53,7 @@ type Props = {
 };
 
 function getImageUrl(imageUrl: number) {
+  // todo store imagePath instead of this hardcoding
   switch (imageUrl) {
     case SANDER_ID:
       return sander;

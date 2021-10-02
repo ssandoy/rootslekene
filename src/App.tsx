@@ -17,6 +17,8 @@ import {
   LEADERBOARD_ROUTE,
   TEAM_SHUFFLER_ROUTE,
 } from "./routes/routes";
+import { YearProvider } from "./context/YearContext";
+import { TabGroup } from "./components/tab-group";
 
 const AppContainerDiv = styled.div`
   background-color: #282c34;
@@ -31,47 +33,50 @@ const NavContainer = styled.div`
   justify-content: center;
 `;
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <AppContainerDiv>
-        <Header />
-        <NavContainer>
-          <NavLink route={INTRO_ROUTE} title="Info" />
-          <NavLink route={COMPETITIONS_ROUTE} title="Konkurranser" />
-          <NavLink route={CONTESTANTS_ROUTE} title="Deltakere" />
-          <NavLink route={LEADERBOARD_ROUTE} title="Leaderboard" />
-        </NavContainer>
-        <Switch>
-          <Route exact path={["/", INTRO_ROUTE]} component={IntroPage} />
-          <FeatureRoute
-            exact
-            title="Konkurranser"
-            path={COMPETITIONS_ROUTE}
-            component={CompetitionsPage}
-          />
-          <FeatureRoute
-            title="Deltakere"
-            exact
-            path={CONTESTANTS_ROUTE}
-            component={ContestantsPage}
-          />
-          <FeatureRoute
-            title="Leaderboard"
-            exact
-            path={LEADERBOARD_ROUTE}
-            component={LeaderboardPage}
-          />
-          <FeatureRoute
-            title="Lagvelger"
-            exact
-            path={TEAM_SHUFFLER_ROUTE}
-            component={TeamShufflingPage}
-          />
-        </Switch>
-      </AppContainerDiv>
-    </Router>
+    <YearProvider>
+      <Router>
+        <AppContainerDiv>
+          <Header />
+          <TabGroup />
+          <NavContainer>
+            <NavLink route={INTRO_ROUTE} title="Info" />
+            <NavLink route={COMPETITIONS_ROUTE} title="Konkurranser" />
+            <NavLink route={CONTESTANTS_ROUTE} title="Deltakere" />
+            <NavLink route={LEADERBOARD_ROUTE} title="Leaderboard" />
+          </NavContainer>
+          <Switch>
+            <Route exact path={["/", INTRO_ROUTE]} component={IntroPage} />
+            <FeatureRoute
+              exact
+              title="Konkurranser"
+              path={COMPETITIONS_ROUTE}
+              component={CompetitionsPage}
+            />
+            <FeatureRoute
+              title="Deltakere"
+              exact
+              path={CONTESTANTS_ROUTE}
+              component={ContestantsPage}
+            />
+            <FeatureRoute
+              title="Leaderboard"
+              exact
+              path={LEADERBOARD_ROUTE}
+              component={LeaderboardPage}
+            />
+            <FeatureRoute
+              title="Lagvelger"
+              exact
+              path={TEAM_SHUFFLER_ROUTE}
+              component={TeamShufflingPage}
+            />
+          </Switch>
+        </AppContainerDiv>
+      </Router>
+    </YearProvider>
   );
-}
+};
 
 export default App;

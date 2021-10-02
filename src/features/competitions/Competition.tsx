@@ -1,6 +1,6 @@
 import React from "react";
-import { CompetitionType } from "./types";
 import styled from "@emotion/styled";
+import { Competition as CompetitionType } from "../../firebase/types";
 
 const CompetitionContainer = styled.div`
   display: flex;

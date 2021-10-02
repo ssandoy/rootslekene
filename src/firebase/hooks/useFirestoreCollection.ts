@@ -16,6 +16,7 @@ export const useFirestoreCollection = <T>(
   const [collectionData, setCollectionData] = useState<T[] | null>(null);
 
   useEffect(() => {
+    setCollectionData(null);
     setIsLoading(true);
     setError(null);
     const unsubscribe = firestore

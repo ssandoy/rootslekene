@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Countdown from "react-countdown";
 import styled from "@emotion/styled";
+import { useYearContext } from "../context/YearContext";
 
 interface Props {
   component: React.FC;
@@ -32,10 +33,11 @@ const renderer = ({
   minutes,
   seconds,
   completed,
+  shouldBeHidden,
   title,
   component: Component,
 }: any) => {
-  if (!completed) {
+  if (!completed && shouldBeHidden) {
     return (
       <CountdownWrapper>
         <Title>{title}</Title>
@@ -58,16 +60,18 @@ const FeatureRoute: React.FC<Props> = ({
   title,
   ...rest
 }: Props) => {
+  const { selectedYear } = useYearContext();
+  const shouldBeHidden = selectedYear === "2022";
   return (
     <Route {...rest}>
       {(props) => (
-        // fixme duplicate title
         <Countdown
           date={OPEN_DATE}
           renderer={(props) =>
             renderer({
               ...props,
               title,
+              shouldBeHidden,
               //  @ts-ignore
               component: () => <Component {...props} />,
             })

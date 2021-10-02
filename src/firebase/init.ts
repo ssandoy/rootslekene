@@ -18,7 +18,5 @@ if (!firebase.apps.length) {
   firebase.firestore();
 }
 
-// todo script which sets up the games
-
 export const storage = firebase.storage();
 export const firestore = firebase.firestore();
