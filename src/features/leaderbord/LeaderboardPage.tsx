@@ -13,6 +13,11 @@ import {
 } from "../../firebase/types";
 import { ToBeAnnounced } from "../../components/to-be-announced";
 import { SmallText } from "../../styles";
+import {
+  getContestantPoints,
+  getLeaderboardTopScorer,
+  sortLeaderboardContestants,
+} from "./domain";
 
 const LeaderboardWrapper = styled.div``;
 
@@ -55,28 +60,19 @@ const Leaderboard: React.FC = () => {
     isLoadingCompetitions || isLoadingContestants || isLoadingGameOver;
 
   const sortedContestants = useMemo(() => {
-    return (
-      contestants
-        ?.map((contestant) => {
-          const totalPoints = competitions?.reduce((acc, curr) => {
-            return (
-              // todo function for this
-              acc +
-              (curr.results?.find(
-                (result) => result.contestantId === contestant.id
-              )?.points ?? 0)
-            );
-          }, 0);
-          return {
-            name: contestant.shortName,
-            id: contestant.id,
-            totalPoints,
-          };
-        })
-        .sort((contestantA, contestantB) => contestantA.id - contestantB.id) ??
-      []
+    return sortLeaderboardContestants(
+      contestants?.map((contestant) => {
+        const totalPoints =
+          competitions?.reduce((acc, curr) => {
+            return acc + getContestantPoints(curr.results ?? [])(contestant);
+          }, 0) ?? 0;
+        return {
+          ...contestant,
+          totalPoints,
+        };
+      }) ?? []
     );
-  }, [contestants]);
+  }, [competitions, contestants]);
 
   const rowData = useMemo(() => {
     return (
@@ -94,23 +90,8 @@ const Leaderboard: React.FC = () => {
     );
   }, [competitions]);
 
-  // todo domain functions for these
   const champion = isGameOverList?.[0]
-    ? contestants?.find(
-        (contestant) =>
-          contestant.id ===
-          sortedContestants.reduce(
-            (topScorer, currContestant) => {
-              if (
-                (currContestant.totalPoints ?? 0) > (topScorer.totalPoints ?? 0)
-              ) {
-                return currContestant;
-              }
-              return topScorer;
-            },
-            { totalPoints: 0, id: 0, name: "init" }
-          ).id
-      )
+    ? getLeaderboardTopScorer(sortedContestants)
     : null;
 
   return (
@@ -124,7 +105,7 @@ const Leaderboard: React.FC = () => {
               <tr>
                 <TableHeading>Øvelse</TableHeading>
                 {sortedContestants.map((contestant) => (
-                  <th key={contestant.id}>{contestant.name}</th>
+                  <th key={contestant.id}>{contestant.shortName}</th>
                 ))}
               </tr>
             </thead>

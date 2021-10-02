@@ -23,5 +23,4 @@ export type Contestant = {
   age: number;
   strength: string;
   weakness: string;
-  somethingElse?: string;
 };

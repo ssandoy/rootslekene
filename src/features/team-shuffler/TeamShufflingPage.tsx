@@ -5,7 +5,6 @@ import { Contestant } from "../../components/contestant";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
 import { Contestant as ContestantType } from "../../firebase/types";
-import { useYearContext } from "../../context/YearContext";
 
 const PageWrapper = styled.div`
   display: flex;
