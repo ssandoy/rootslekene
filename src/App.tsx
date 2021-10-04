@@ -15,10 +15,12 @@ import {
   CONTESTANTS_ROUTE,
   INTRO_ROUTE,
   LEADERBOARD_ROUTE,
+  SPINNING_WHEEL_ROUTE,
   TEAM_SHUFFLER_ROUTE,
 } from "./routes/routes";
 import { YearProvider } from "./context/YearContext";
 import { TabGroup } from "./components/tab-group";
+import { SpinningWheelPage } from "./features/spinning-wheel";
 
 const AppContainerDiv = styled.div`
   background-color: #282c34;
@@ -71,6 +73,12 @@ const App = () => {
               exact
               path={TEAM_SHUFFLER_ROUTE}
               component={TeamShufflingPage}
+            />
+            <FeatureRoute
+              title="Utfordring"
+              exact
+              path={SPINNING_WHEEL_ROUTE}
+              component={SpinningWheelPage}
             />
           </Switch>
         </AppContainerDiv>

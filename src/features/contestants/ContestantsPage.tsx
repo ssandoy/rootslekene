@@ -21,7 +21,6 @@ const ContestantsWrapper = styled.div`
 `;
 
 const Contestants: React.FC = () => {
-  // todo check for selectedYear when fetching when data is open
   const { isLoading, collectionData: contestants } =
     useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
   return (
