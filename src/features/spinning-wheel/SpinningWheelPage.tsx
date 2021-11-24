@@ -7,6 +7,7 @@ import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollect
 import { INDICES } from "../../firebase/hooks/types";
 import { Contestant } from "../../components/contestant";
 import Spinner from "../../components/spinner/Spinner";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const BACKGROUND_COLORS = [
   "#ff4c5a",
@@ -21,6 +22,8 @@ const BACKGROUND_COLORS = [
   "#f7d046",
 ];
 
+const CHALLENGES = ["SHOT", "BÅNNSKI", "TYP", "TAPP", "TIPP", "TOPP"];
+
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,7 +32,7 @@ const PageWrapper = styled.div`
 
 const getWinningContestant =
   (winnerName: string) => (contestants: ContestantType[]) =>
-    contestants.find((cont) => cont.name === winnerName);
+    contestants.find((contestant) => contestant.name === winnerName);
 
 const SpinningWheelPage: React.FC = () => {
   const [winningContestant, setWinningContestant] =
@@ -41,32 +44,51 @@ const SpinningWheelPage: React.FC = () => {
     return <Spinner />;
   }
 
+  // todo animations when transisting and make it nice and smooth
+  // todo classname-enter in css?
   return (
     <Page title="Utfordring">
       <PageWrapper>
-        <Wheel
-          size="500"
-          items={
-            contestants?.map((contestant, i) => {
-              return {
-                name: contestant.name,
-                style: {
-                  backgroundColor: BACKGROUND_COLORS[i],
-                },
-              };
-            }) ?? []
-          }
-          onStartSpinning={() => {
-            setWinningContestant(null);
-          }}
-          onStopSpinning={(winner) => {
-            setWinningContestant(
-              getWinningContestant(winner.name)(contestants ?? []) ?? null
-            );
-          }}
-        />
-        {winningContestant && (
-          <Contestant contestant={winningContestant} showDetails={false} />
+        {!winningContestant ? (
+          <TransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={5000}
+            transitionLeaveTimeout={3000}
+          >
+            <Wheel
+              size="450"
+              // todo size for mobile
+              items={
+                contestants?.map((contestant, i) => {
+                  return {
+                    name: contestant.name,
+                    style: {
+                      backgroundColor: BACKGROUND_COLORS[i],
+                    },
+                  };
+                }) ?? []
+              }
+              onStartSpinning={() => {
+                setWinningContestant(null);
+              }}
+              onStopSpinning={(winner) => {
+                setWinningContestant(
+                  getWinningContestant(winner.name)(contestants ?? []) ?? null
+                );
+              }}
+            />
+          </TransitionGroup>
+        ) : (
+          <>
+            <Contestant contestant={winningContestant} showDetails={false} />
+            <Wheel
+              size="500"
+              items={CHALLENGES.map((challenge, i) => ({
+                name: challenge,
+                style: { backgroundColor: BACKGROUND_COLORS[i] },
+              }))}
+            />
+          </>
         )}
       </PageWrapper>
     </Page>
