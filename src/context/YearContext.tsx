@@ -12,7 +12,7 @@ export const YearContext = React.createContext<YearState | undefined>(
 );
 
 const YearProvider: React.FC = (children) => {
-  const [selectedYear, setSelectedYear] = useState<Year>("2021");
+  const [selectedYear, setSelectedYear] = useState<Year>("2022");
 
   return (
     <YearContext.Provider
