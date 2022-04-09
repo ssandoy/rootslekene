@@ -20,7 +20,7 @@ export const Text = styled.p`
 export const SmallText = styled.p`
   color: white;
   text-align: center;
-  font-size: 12px;
+  font-size: 0.9rem;
 `;
 
 export const Image = styled.img`

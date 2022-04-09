@@ -15,7 +15,7 @@ const NavLink: React.FC<Props> = ({ route, title }: Props) => {
         color: "white",
         textDecoration: "none",
         margin: 8,
-        fontSize: "14px",
+        fontSize: "1.1rem",
       }}
       activeStyle={{
         color: "white",

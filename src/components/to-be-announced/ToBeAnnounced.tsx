@@ -14,7 +14,7 @@ const HorinzontalLine = styled.hr`
 const ToBeAnnounced: React.FC = ({ children }) => {
   return (
     <Container>
-      <p>COMING SOON</p>
+      <p>KOMMER SNART</p>
       <HorinzontalLine />
       {children}
     </Container>

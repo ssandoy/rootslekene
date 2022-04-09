@@ -1,19 +1,28 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { device } from "../../utils/mixins";
 
 const HeaderDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
+
+const SVG = styled.svg`
+  width: 300px;
+  height: 150px;
+  @media ${device.FOR_TABLET_PORTRAIT_UP} {
+    width: 400px;
+    height: 200px;
+  }
+`;
+
 const Header: React.FC = () => {
   return (
     <HeaderDiv>
-      <svg
+      <SVG
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        width="299.84"
-        height="150"
         version="1.2"
         viewBox="0 0 224.88 112.5"
       >
@@ -110,7 +119,7 @@ const Header: React.FC = () => {
           <use x="143.999" y="83.279" fill="#FFF" xlinkHref="#glyph1-0"></use>
           <use x="147.197" y="83.279" fill="#FFF" xlinkHref="#glyph1-0"></use>
         </g>
-      </svg>
+      </SVG>
     </HeaderDiv>
   );
 };

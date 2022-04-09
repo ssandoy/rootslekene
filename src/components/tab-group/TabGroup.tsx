@@ -5,6 +5,7 @@ import { useYearContext } from "../../context/YearContext";
 const TabGroupContainer = styled.div`
   display: flex;
   margin-bottom: 16px;
+  margin-top: -16px;
 `;
 
 type TabButtonProps = {
