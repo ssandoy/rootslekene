@@ -6,6 +6,7 @@ import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollect
 import { INDICES } from "../../firebase/hooks/types";
 import { Contestant as ContestantType } from "../../firebase/types";
 
+// todo move out
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;

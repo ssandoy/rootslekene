@@ -58,7 +58,7 @@ const drawWheel = ({
 
       // WHEEL RADIUS LINES
       ctx.strokeStyle = "#eeeeee";
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 2;
       for (let j = 0; j < items.length; j++) {
         const radiusAngle = startAngle + j * arc;
         ctx.beginPath();
