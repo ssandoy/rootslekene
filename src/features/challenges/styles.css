@@ -1,0 +1,21 @@
+.side-transition-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.side-transition-enter-active {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.side-transition-exit {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.side-transition-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.side-transition-enter-active,
+.side-transition-exit-active {
+    transition: opacity 1000ms, transform 1000ms;
+}
+

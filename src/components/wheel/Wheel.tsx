@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 
 const START_SPINNING_TIME = 2600;
 const CONTINUE_SPINNING_TIME = 750;
-const STOP_SPINNING_TIME = 8000; // todo tweak
+const STOP_SPINNING_TIME = 6000; // todo tweak
 
 const Container = styled.div`
   display: flex;
@@ -31,12 +31,14 @@ const ArrowContainer = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: #ff9e5e;
-  border-color: transparent;
-  border-radius: 50%;
-  width: 50px;
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid white;
+  width: 100px;
   height: 50px;
   margin-top: 50px;
+  font-weight: bold;
 `;
 
 const getRotationClass = (hasStartedSpinning: boolean) =>
@@ -66,9 +68,10 @@ const Wheel: React.FC<Props> = ({
         mustStopSpinning.current = false;
         onStopSpinning?.(items[winner.current]);
       }
-    }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME + 300);
+    }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME + 1000);
   };
 
+  // todo selected item as prop to outline it?
   return (
     <Container>
       <div style={{ position: "relative" }}>
