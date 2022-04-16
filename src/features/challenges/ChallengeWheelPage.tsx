@@ -112,8 +112,8 @@ export const ChallengeWheelPage: React.FC = () => {
                 }
               >
                 <div>
-                  {hasDrawnChallenge ? (
-                    <Challenge challenge={drawnChallenge as ChallengeType} />
+                  {drawnChallenge ? (
+                    <Challenge challenge={drawnChallenge} />
                   ) : (
                     <p>
                       Hva må <b>{drawnContestant.name}</b> gjøre daa?

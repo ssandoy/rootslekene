@@ -17,10 +17,14 @@ import {
   LEADERBOARD_ROUTE,
   SPINNING_WHEEL_ROUTE,
   TEAM_SHUFFLER_ROUTE,
+  TOURNAMENT_DRAWER_ROUTE,
+  TOURNAMENT_ROUTE,
 } from "./routes/routes";
 import { useYearContext } from "./context/YearContext";
 import { ChallengeWheelPage } from "./features/challenges/ChallengeWheelPage";
 import { TabGroup } from "./components/tab-group";
+import { TournamentDrawerPage } from "./features/tournament/TournamentDrawerPage";
+import { TournamentPage } from "./features/tournament/TournamentPage";
 
 const AppContainerDiv = styled.div`
   background-color: #282c34;
@@ -77,23 +81,35 @@ const App = () => {
           />
           <FeatureRoute
             title="Resultater"
-            exact
-            path={LEADERBOARD_ROUTE}
-            component={LeaderboardPage}
-          />
-          <FeatureRoute
-            title="Utfordring"
-            exact
-            path={SPINNING_WHEEL_ROUTE}
-            component={ChallengeWheelPage}
-          />
-          <FeatureRoute
-            title="Lagvelger"
-            exact
-            path={TEAM_SHUFFLER_ROUTE}
-            component={TeamShufflingPage}
-          />
-        </Switch>
+              exact
+              path={LEADERBOARD_ROUTE}
+              component={LeaderboardPage}
+            />
+            <FeatureRoute
+              title="Utfordring"
+              exact
+              path={SPINNING_WHEEL_ROUTE}
+              component={ChallengeWheelPage}
+            />
+            <FeatureRoute
+              title="Lagvelger"
+              exact
+              path={TEAM_SHUFFLER_ROUTE}
+              component={TeamShufflingPage}
+            />
+            <FeatureRoute
+              title="Turneringstrekker"
+              exact
+              path={TOURNAMENT_DRAWER_ROUTE}
+              component={TournamentDrawerPage}
+            />
+            <FeatureRoute
+              title="Turnering!"
+              exact
+              path={TOURNAMENT_ROUTE}
+              component={TournamentPage}
+            />
+          </Switch>
       </AppContainerDiv>
     </Router>
   );
