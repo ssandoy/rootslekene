@@ -15,16 +15,19 @@ export const getContestantResults =
   (competitions: Competition[]) =>
   (contestant: Pick<Contestant, "id">): SingleResultWithIcon[] =>
     competitions.reduce((acc, currentValue) => {
-      const givenRes = currentValue.results?.find(
+      const givenResult = currentValue.results?.find(
         (r) => r.contestantId === contestant.id
       );
-      const res: SingleResultWithIcon = {
+      if (!givenResult) {
+        return acc;
+      }
+      const resWithIcon = {
         icon: currentValue.icon,
         competitionId: currentValue.id,
         contestantId: contestant.id,
-        points: givenRes?.points ?? 0,
+        points: givenResult?.points,
       };
-      return [...acc, res];
+      return [...acc, resWithIcon];
     }, [] as SingleResultWithIcon[]);
 
 export interface LeaderboardContestant extends Contestant {

@@ -6,14 +6,14 @@ import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
 import { useYearContext } from "../../context/YearContext";
 import { Competition as CompetitionType } from "../../firebase/types";
-import { LeaderboardContestant as ContestantType } from "./domain";
-import { ToBeAnnounced } from "../../components/to-be-announced";
-import { SmallText } from "../../styles";
 import {
   getContestantPoints,
+  LeaderboardContestant as ContestantType,
   LeaderboardContestant,
   sortLeaderboardContestants,
 } from "./domain";
+import { ToBeAnnounced } from "../../components/to-be-announced";
+import { SmallText } from "../../styles";
 import { Results } from "./Results";
 import { Leaderboard } from "./Leaderboard";
 import { TabGroup } from "../../components/tab-group";
@@ -29,11 +29,20 @@ const Link = styled.a`
 `;
 
 const Container: React.FC = () => {
+  const { selectedYear } = useYearContext();
+  const competitionIndex =
+    selectedYear === "2021"
+      ? INDICES.COMPETITIONS_TEST_2021
+      : INDICES.COMPETITIONS_TEST_2022;
+  const contestantIndex =
+    selectedYear === "2021"
+      ? INDICES.CONTESTANTS_TEST_2021
+      : INDICES.CONTESTANTS_TEST_2022;
   const [showLeaderboard, setShowLeaderboard] = useState(true);
   const { isLoading: isLoadingCompetitions, collectionData: competitions } =
-    useFirestoreCollection<CompetitionType>(INDICES.COMPETITIONS_PROD_2021);
+    useFirestoreCollection<CompetitionType>(competitionIndex);
   const { isLoading: isLoadingContestants, collectionData: contestants } =
-    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
+    useFirestoreCollection<ContestantType>(contestantIndex);
 
   const isLoading = isLoadingCompetitions || isLoadingContestants;
 

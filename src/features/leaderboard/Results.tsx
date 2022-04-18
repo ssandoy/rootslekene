@@ -25,9 +25,12 @@ export const Results: React.FC<Props> = ({ competitions, contestants }) => {
   return (
     <List>
       {competitions?.map((competition) => {
-        return (
-          <Competition competition={competition} contestants={contestants} />
-        );
+        if (competition?.results?.length) {
+          return (
+            <Competition competition={competition} contestants={contestants} />
+          );
+        }
+        return null;
       })}
     </List>
   );

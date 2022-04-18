@@ -9,7 +9,7 @@ export const Intro2022: React.FC = () => {
   return (
     <>
       <Text style={{ marginTop: 40 }}>
-        <b>Dato: To Be Announced!</b>
+        <b>Dato: 14-16. juli!</b>
       </Text>
       <Text>Vi gjentar suksessen med Rootslekene fra fjoråret!</Text>
       <Text>Mer info kommer.</Text>

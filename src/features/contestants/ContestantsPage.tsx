@@ -21,8 +21,13 @@ const ContestantsWrapper = styled.div`
 `;
 
 const Contestants: React.FC = () => {
+  const { selectedYear } = useYearContext();
+  const contestantIndex =
+    selectedYear === "2021"
+      ? INDICES.CONTESTANTS_PROD_2021
+      : INDICES.CONTESTANTS_TEST_2022;
   const { isLoading, collectionData: contestants } =
-    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
+    useFirestoreCollection<ContestantType>(contestantIndex);
   return (
     <ContestantsWrapper>
       {isLoading && <Spinner />}

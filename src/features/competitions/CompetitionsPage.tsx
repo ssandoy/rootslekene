@@ -20,8 +20,13 @@ const Link = styled.a`
 `;
 
 const Competitions: React.FC = () => {
+  const { selectedYear } = useYearContext();
+  const competitionIndex =
+    selectedYear === "2021"
+      ? INDICES.COMPETITIONS_PROD_2021
+      : INDICES.COMPETITIONS_TEST_2022;
   const { collectionData: competitions } =
-    useFirestoreCollection<CompetitionType>(INDICES.COMPETITIONS_PROD_2021);
+    useFirestoreCollection<CompetitionType>(competitionIndex);
   return (
     <CompetitionsContainer>
       {competitions?.map((competition) => (
