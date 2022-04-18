@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { useYearContext } from "../../context/YearContext";
 
 const TabGroupContainer = styled.div`
   display: flex;
@@ -9,10 +8,13 @@ const TabGroupContainer = styled.div`
 `;
 
 type TabButtonProps = {
+  text: string;
   isActive: boolean;
+  onClick: () => void;
+  styles?: object; // fixme
 };
 
-const TabButton = styled.button<TabButtonProps>`
+const TabButton = styled.button<Pick<TabButtonProps, "isActive">>`
   background: none;
   border-radius: 20px;
   font-size: 1em;
@@ -25,23 +27,26 @@ const TabButton = styled.button<TabButtonProps>`
   }
 `;
 
-const TabGroup: React.FC = () => {
-  const { selectedYear, setSelectedYear } = useYearContext();
+type Props = {
+  buttons: TabButtonProps[];
+};
 
+// todo can we make this better somehow...
+// todo render-props?
+const TabGroup: React.FC<Props> = ({ buttons }) => {
   return (
     <TabGroupContainer>
-      <TabButton
-        isActive={selectedYear === "2021"}
-        onClick={() => setSelectedYear("2021")}
-      >
-        2021
-      </TabButton>
-      <TabButton
-        isActive={selectedYear === "2022"}
-        onClick={() => setSelectedYear("2022")}
-      >
-        2022
-      </TabButton>
+      {buttons.map((buttonProps) => {
+        return (
+          <TabButton
+            isActive={buttonProps.isActive}
+            onClick={buttonProps.onClick}
+            style={buttonProps.styles}
+          >
+            {buttonProps.text}
+          </TabButton>
+        );
+      })}
     </TabGroupContainer>
   );
 };

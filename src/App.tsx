@@ -7,7 +7,7 @@ import { NavLink } from "./components/nav-link";
 import styled from "@emotion/styled";
 import { Header } from "./components/header";
 import { ContestantsPage } from "./features/contestants";
-import { LeaderboardPage } from "./features/leaderbord";
+import { LeaderboardPage } from "./features/leaderboard";
 import { TeamShufflingPage } from "./features/team-shuffler";
 import { FeatureRoute } from "./routes";
 import {
@@ -18,7 +18,7 @@ import {
   SPINNING_WHEEL_ROUTE,
   TEAM_SHUFFLER_ROUTE,
 } from "./routes/routes";
-import { YearProvider } from "./context/YearContext";
+import { useYearContext } from "./context/YearContext";
 import { ChallengeWheelPage } from "./features/challenges/ChallengeWheelPage";
 import { TabGroup } from "./components/tab-group";
 
@@ -36,54 +36,66 @@ const NavContainer = styled.div`
 `;
 
 const App = () => {
+  const { selectedYear, setSelectedYear } = useYearContext();
   return (
-    <YearProvider>
-      <Router>
-        <AppContainerDiv>
-          <Header />
-          <TabGroup />
-          <NavContainer>
-            <NavLink route={INTRO_ROUTE} title="Info" />
-            <NavLink route={COMPETITIONS_ROUTE} title="Konkurranser" />
-            <NavLink route={CONTESTANTS_ROUTE} title="Deltakere" />
-            <NavLink route={LEADERBOARD_ROUTE} title="Leaderboard" />
-          </NavContainer>
-          <Switch>
-            <Route exact path={["/", INTRO_ROUTE]} component={IntroPage} />
-            <FeatureRoute
-              exact
-              title="Konkurranser"
-              path={COMPETITIONS_ROUTE}
-              component={CompetitionsPage}
-            />
-            <FeatureRoute
-              title="Deltakere"
-              exact
-              path={CONTESTANTS_ROUTE}
-              component={ContestantsPage}
-            />
-            <FeatureRoute
-              title="Leaderboard"
-              exact
-              path={LEADERBOARD_ROUTE}
-              component={LeaderboardPage}
-            />
-            <FeatureRoute
-              title="Utfordring"
-              exact
-              path={SPINNING_WHEEL_ROUTE}
-              component={ChallengeWheelPage}
-            />
-            <FeatureRoute
-              title="Lagvelger"
-              exact
-              path={TEAM_SHUFFLER_ROUTE}
-              component={TeamShufflingPage}
-            />
-          </Switch>
-        </AppContainerDiv>
-      </Router>
-    </YearProvider>
+    <Router>
+      <AppContainerDiv>
+        <Header />
+        <TabGroup
+          buttons={[
+            {
+              text: "2021",
+              isActive: selectedYear === "2021",
+              onClick: () => setSelectedYear("2021"),
+            },
+            {
+              text: "2022",
+              isActive: selectedYear === "2022",
+              onClick: () => setSelectedYear("2022"),
+            },
+          ]}
+        />
+        <NavContainer>
+          <NavLink route={INTRO_ROUTE} title="Info" />
+          <NavLink route={COMPETITIONS_ROUTE} title="Konkurranser" />
+          <NavLink route={CONTESTANTS_ROUTE} title="Deltakere" />
+          <NavLink route={LEADERBOARD_ROUTE} title="Resultater" />
+        </NavContainer>
+        <Switch>
+          <Route exact path={["/", INTRO_ROUTE]} component={IntroPage} />
+          <FeatureRoute
+            exact
+            title="Konkurranser"
+            path={COMPETITIONS_ROUTE}
+            component={CompetitionsPage}
+          />
+          <FeatureRoute
+            title="Deltakere"
+            exact
+            path={CONTESTANTS_ROUTE}
+            component={ContestantsPage}
+          />
+          <FeatureRoute
+            title="Resultater"
+            exact
+            path={LEADERBOARD_ROUTE}
+            component={LeaderboardPage}
+          />
+          <FeatureRoute
+            title="Utfordring"
+            exact
+            path={SPINNING_WHEEL_ROUTE}
+            component={ChallengeWheelPage}
+          />
+          <FeatureRoute
+            title="Lagvelger"
+            exact
+            path={TEAM_SHUFFLER_ROUTE}
+            component={TeamShufflingPage}
+          />
+        </Switch>
+      </AppContainerDiv>
+    </Router>
   );
 };
 

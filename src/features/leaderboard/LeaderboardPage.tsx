@@ -1,65 +1,43 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
-import { Contestant } from "../../components/contestant";
-import { device } from "../../utils/mixins";
 import { useYearContext } from "../../context/YearContext";
-import {
-  Competition,
-  Contestant as ContestantType,
-} from "../../firebase/types";
+import { Competition as CompetitionType } from "../../firebase/types";
+import { LeaderboardContestant as ContestantType } from "./domain";
 import { ToBeAnnounced } from "../../components/to-be-announced";
 import { SmallText } from "../../styles";
 import {
   getContestantPoints,
-  getLeaderboardTopScorer,
+  LeaderboardContestant,
   sortLeaderboardContestants,
 } from "./domain";
+import { Results } from "./Results";
+import { Leaderboard } from "./Leaderboard";
+import { TabGroup } from "../../components/tab-group";
 
-const LeaderboardWrapper = styled.div``;
-
-const ChampionWrapper = styled.div`
+const LeaderboardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-`;
-
-const Table = styled.table`
-  color: white;
-`;
-
-const TableHeading = styled.th`
-  text-align: left;
-`;
-
-const TableData = styled.td`
-  padding: 8px;
-  text-align: center;
-  @media ${device.FOR_TABLET_PORTRAIT_UP} {
-    width: 42px;
-  }
 `;
 
 const Link = styled.a`
   color: white;
 `;
 
-const Leaderboard: React.FC = () => {
+const Container: React.FC = () => {
+  const [showLeaderboard, setShowLeaderboard] = useState(true);
   const { isLoading: isLoadingCompetitions, collectionData: competitions } =
-    useFirestoreCollection<Competition>(INDICES.COMPETITIONS_PROD_2021);
+    useFirestoreCollection<CompetitionType>(INDICES.COMPETITIONS_PROD_2021);
   const { isLoading: isLoadingContestants, collectionData: contestants } =
     useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
-  const { isLoading: isLoadingGameOver, collectionData: isGameOverList } =
-    useFirestoreCollection<ContestantType>(INDICES.GAME_OVER_PROD_2021);
 
-  const isLoading =
-    isLoadingCompetitions || isLoadingContestants || isLoadingGameOver;
+  const isLoading = isLoadingCompetitions || isLoadingContestants;
 
-  const sortedContestants = useMemo(() => {
+  const sortedContestants: LeaderboardContestant[] = useMemo(() => {
     return sortLeaderboardContestants(
       contestants?.map((contestant) => {
         const totalPoints =
@@ -74,64 +52,38 @@ const Leaderboard: React.FC = () => {
     );
   }, [competitions, contestants]);
 
-  const rowData = useMemo(() => {
-    return (
-      competitions?.map((competition) => {
-        const results = competition.results ?? [];
-        return [
-          competition.icon,
-          ...results
-            .sort(
-              (resultA, resultB) => resultA.contestantId - resultB.contestantId
-            )
-            .map((result) => result.points),
-        ];
-      }) ?? []
-    );
-  }, [competitions]);
-
-  const champion = isGameOverList?.[0]
-    ? getLeaderboardTopScorer(sortedContestants)
-    : null;
-
   return (
     <LeaderboardWrapper>
       {isLoading ? (
         <Spinner />
       ) : (
         <>
-          <Table>
-            <thead>
-              <tr>
-                <TableHeading>Øvelse</TableHeading>
-                {sortedContestants.map((contestant) => (
-                  <th key={contestant.id}>{contestant.shortName}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rowData.map((row) => (
-                <tr key={row.toString()}>
-                  {row.map((r, idx) => {
-                    return <TableData key={idx}>{r}</TableData>;
-                  })}
-                </tr>
-              ))}
-              <tr>
-                <td style={{ textAlign: "left" }}>
-                  <b>Totalt</b>
-                </td>
-                {sortedContestants.map((contestant, idx) => (
-                  <TableData key={idx}>{contestant?.totalPoints}</TableData>
-                ))}
-              </tr>
-            </tbody>
-          </Table>
-          {champion && (
-            <ChampionWrapper>
-              <h3 style={{ color: "gold" }}>🏆 2021 CHAMPION 🏆</h3>
-              <Contestant contestant={champion} showDetails={false} />
-            </ChampionWrapper>
+          <TabGroup
+            buttons={[
+              {
+                text: "Sammendrag",
+                isActive: showLeaderboard,
+                onClick: () => setShowLeaderboard(true),
+                styles: { fontSize: "0.85em" },
+              },
+              {
+                text: "Konkurranser",
+                isActive: !showLeaderboard,
+                onClick: () => setShowLeaderboard(false),
+                styles: { fontSize: "0.85em" },
+              },
+            ]}
+          />
+          {showLeaderboard ? (
+            <Leaderboard
+              competitions={competitions as CompetitionType[]}
+              contestants={sortedContestants}
+            />
+          ) : (
+            <Results
+              competitions={competitions as CompetitionType[]}
+              contestants={sortedContestants}
+            />
           )}
         </>
       )}
@@ -143,9 +95,9 @@ const LeaderboardPage: React.FC = () => {
   const { selectedYear } = useYearContext();
 
   return (
-    <Page title="Leaderboard">
+    <Page title="Resultater">
       {selectedYear === "2021" ? (
-        <Leaderboard />
+        <Container />
       ) : (
         <ToBeAnnounced>
           <SmallText>

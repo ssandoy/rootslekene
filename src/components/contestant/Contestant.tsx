@@ -52,7 +52,7 @@ type Props = {
   showDetails?: boolean;
 };
 
-function getImageUrl(imageUrl: number) {
+export function getContestantImage(imageUrl: number) {
   // todo store imagePath instead of this hardcoding
   switch (imageUrl) {
     case SANDER_ID:
@@ -81,7 +81,7 @@ export const Contestant: React.FC<Props> = ({
 }) => {
   return (
     <ContestantContainer>
-      <ContestantImage src={getImageUrl(contestant.id)} />
+      <ContestantImage src={getContestantImage(contestant.id)} />
       <InfoWrapper>
         <Text style={{ textAlign: "center", marginTop: 12, marginBottom: 8 }}>
           {contestant.name}

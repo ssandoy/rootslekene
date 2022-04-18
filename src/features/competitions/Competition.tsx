@@ -32,7 +32,7 @@ export const Competition: React.FC<Props> = ({ competition }) => {
   return (
     <CompetitionContainer>
       <CompetitionHeader>
-        {competition.order}. {competition.name}
+        {competition.name} {competition.icon}
       </CompetitionHeader>
       <Text>{competition.info}</Text>
       <SubText>{competition.description}</SubText>
