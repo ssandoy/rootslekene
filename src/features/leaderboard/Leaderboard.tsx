@@ -65,7 +65,7 @@ const RowGrid = styled.li<{ ix: number }>`
     grid-template-columns: 40px 100px 225px 60px;
     grid-gap: 32px;
   }
-  grid-template-columns: 40px ${MOBILE_WIDTH}px 1fr 72px;
+  grid-template-columns: 40px 75px 173px 50px;
   grid-gap: 6px;
   align-items: center;
   background-color: ${({ ix }) => (ix % 2 === 1 ? "#282c34" : "#313640")};
@@ -87,6 +87,7 @@ type Props = {
   competitions: CompetitionType[];
 };
 
+// todo handle equal score for someone
 export const Leaderboard: React.FC<Props> = ({ contestants, competitions }) => {
   return (
     <List>
@@ -122,7 +123,7 @@ export const Leaderboard: React.FC<Props> = ({ contestants, competitions }) => {
               );
             })}
           </ResultsContainer>
-          <strong style={{ textAlign: "center" }}>
+          <strong style={{ textAlign: "center", fontSize: "0.9em" }}>
             {contestant?.totalPoints}p
           </strong>
         </RowGrid>
