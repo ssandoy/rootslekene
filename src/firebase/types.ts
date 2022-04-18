@@ -7,7 +7,7 @@ export type Competition = {
   info?: string;
   bookieFavorite?: string;
   subCompetition?: Pick<Competition, "order" | "name" | "description">[];
-  results?: Result[];
+  results: Result[];
 };
 
 export type Result = {
@@ -17,7 +17,6 @@ export type Result = {
 
 export type Contestant = {
   id: number;
-  imageUrl: string;
   name: string;
   shortName: string;
   age: number;

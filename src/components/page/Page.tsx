@@ -11,6 +11,7 @@ const PageDiv = styled.div`
 
 const Title = styled.h2`
   color: white;
+  margin-bottom: 20px;
 `;
 
 const Container = styled.div`
