@@ -8,6 +8,27 @@ export type Competition = {
   bookieFavorite?: string;
   subCompetition?: Pick<Competition, "order" | "name" | "description">[];
   results: Result[];
+  tournament?: Tournament;
+};
+
+type Participant = {
+  name: string;
+  isWinner?: boolean;
+  resultText?: string | null;
+};
+
+export type Game = {
+  contestantA: Participant;
+  contestantB: Participant;
+  result?: string;
+  winner?: Participant;
+  id: number;
+  nextMatchId: number | null;
+};
+
+type Tournament = {
+  description?: string; // todo not needed?
+  games: Game[];
 };
 
 export type Result = {

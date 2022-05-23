@@ -8,11 +8,15 @@ import { INDICES } from "../../firebase/hooks/types";
 import { useYearContext } from "../../context/YearContext";
 import { ToBeAnnounced } from "../../components/to-be-announced";
 import { SmallText } from "../../styles";
+import { device } from "../../utils/mixins";
 
 const CompetitionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 400px;
+  @media ${device.FOR_PHONE_ONLY} {
+    width: 90%;
+  }
 `;
 
 const Link = styled.a`

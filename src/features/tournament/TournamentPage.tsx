@@ -1,81 +1,17 @@
-// TODO
-// integrate with firebase and render tournament
-
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
-import { Contestant } from "../../firebase/types";
-import { GameResult } from "./GameResult";
+import {
+  Competition as CompetitionType,
+  Contestant as ContestantType,
+  Game,
+} from "../../firebase/types";
 import { GameColumn } from "./GameColumn";
-
-type Participant = {
-  name: string;
-  isWinner?: boolean;
-  resultText?: string | null;
-};
-
-export type Game = {
-  contestantA: Participant; // todo remve
-  contestantB: Participant;
-  result?: string;
-  winner?: Participant;
-  id: number;
-  nextMatchId: number | null;
-};
-
-type Tournament = {
-  // todo how to connect these
-  name: string;
-  description?: string;
-  games: Game[];
-};
-
-const DUMMY_DATA: Tournament = {
-  name: "Gladiator",
-  games: [
-    {
-      contestantA: { name: "Sander", isWinner: true, resultText: "1" },
-      contestantB: { name: "Eirik", isWinner: false, resultText: "0" },
-      nextMatchId: 5,
-      id: 1,
-    },
-    {
-      contestantA: { name: "Simon", isWinner: false, resultText: "1" },
-      contestantB: { name: "Peder", isWinner: true, resultText: "2" },
-      nextMatchId: 5,
-      id: 2,
-    },
-    {
-      contestantA: { name: "Mathias", isWinner: false, resultText: "1" },
-      contestantB: { name: "Eskil", isWinner: true, resultText: "2" },
-      nextMatchId: 6,
-      id: 3,
-    },
-    {
-      contestantA: { name: "Larsi", isWinner: false, resultText: "1" },
-      contestantB: { name: "Robert", isWinner: true, resultText: "2" },
-      nextMatchId: 6,
-      id: 4,
-    },
-    {
-      contestantA: { name: "Sander", isWinner: false },
-      contestantB: { name: "Peder", isWinner: false },
-      nextMatchId: 7,
-      id: 5,
-    },
-    {
-      contestantA: { name: "Eskil", isWinner: false },
-      contestantB: { name: "Robert", isWinner: false },
-      nextMatchId: 7,
-      id: 6,
-    },
-    {
-      contestantA: { name: "Vinner kamp 5", isWinner: false },
-      contestantB: { name: "Vinner kamp 6", isWinner: false },
-      nextMatchId: null,
-      id: 7,
-    },
-  ],
-};
+import { useYearContext } from "../../context/YearContext";
+import { INDICES } from "../../firebase/hooks/types";
+import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
+import Spinner from "../../components/spinner/Spinner";
+import { useParams } from "react-router-dom";
+import { device } from "../../utils/mixins";
 
 const generateColumn =
   (allGames: Game[]) =>
@@ -97,28 +33,78 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
+`;
+
+const Heading = styled.h3`
+  color: white;
+`;
+
+const WinnerContainer = styled.div`
+  margin-top: 24px;
 `;
 
 const ResultsWrapper = styled.div`
   display: flex;
   gap: 32px;
+  @media ${device.FOR_PHONE_ONLY} {
+    flex-direction: column;
+  }
 `;
 export const TournamentPage = () => {
-  const lastGame = DUMMY_DATA.games.find((game) => !game.nextMatchId) as Game;
+  const { id } = useParams<{ id: string }>();
+  const tournamentName = id.replaceAll("-", " ");
+  const { selectedYear } = useYearContext();
+  const competitionIndex =
+    selectedYear === "2021"
+      ? INDICES.COMPETITIONS_PROD_2021
+      : INDICES.COMPETITIONS_TEST_2022;
+  const { collectionData: competitions, isLoading } =
+    useFirestoreCollection<CompetitionType>(competitionIndex);
+
+  const contestantIndex =
+    selectedYear === "2021"
+      ? INDICES.CONTESTANTS_PROD_2021
+      : INDICES.CONTESTANTS_TEST_2022;
+  const { isLoading: isContestantsLoading, collectionData: contestants } =
+    useFirestoreCollection<ContestantType>(contestantIndex);
+
+  if (isLoading || isContestantsLoading) {
+    return <Spinner />;
+  }
+
+  const selectedCompetition = competitions?.find(
+    (c) => c.name === tournamentName
+  );
+
+  if (!selectedCompetition?.tournament) {
+    return (
+      <Page title="Turnering">
+        <p>Fant ingen turnering med navnet {tournamentName} </p>
+      </Page>
+    );
+  }
+
+  const lastGame = selectedCompetition.tournament.games.find(
+    (game) => !game.nextMatchId
+  ) as Game;
+  const winner = contestants?.find((c) => c.name === lastGame?.winner?.name);
   const gameColumns = [
-    ...generateColumn(DUMMY_DATA.games)([lastGame]),
+    ...generateColumn(selectedCompetition.tournament.games)([lastGame]),
     [lastGame],
-  ]; // todo assert need for
-  console.log(gameColumns);
+  ];
   return (
-    <Page title={DUMMY_DATA.name}>
+    <Page title="Turnering">
       <PageWrapper>
-        <p>TURNERING KJØH</p>
+        <Heading>
+          {selectedCompetition.name} {selectedCompetition.icon}
+        </Heading>
         <ResultsWrapper>
           {gameColumns.map((columnGams) => {
             return <GameColumn games={columnGams} />;
           })}
         </ResultsWrapper>
+        {winner && <WinnerContainer>Vinner: {winner.name}</WinnerContainer>}
       </PageWrapper>
     </Page>
   );

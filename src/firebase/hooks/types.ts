@@ -8,6 +8,7 @@ export enum LOADING_STATUS {
 export enum INDICES {
   COMPETITIONS_PROD_2021 = "competitions_2021",
   CONTESTANTS_PROD_2021 = "contestants_2021",
+  CONTESTANTS_PROD_2022 = "contestants_2022",
   GAME_OVER_PROD_2021 = "game_over_2021",
   // Apply these when testing
   COMPETITIONS_TEST_2021 = "competitions_test-2021",

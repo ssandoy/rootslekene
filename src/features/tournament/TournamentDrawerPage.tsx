@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Page } from "../../components/page";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
-import { Challenge } from "../challenges/Challenge";
 import { Wheel } from "../../components/wheel";
-import { ChallengeType } from "../challenges/ChallengeWheelPage";
 import styled from "@emotion/styled";
 
 const PageWrapper = styled.div`
@@ -34,7 +32,7 @@ export const TournamentDrawerPage: React.FC = () => {
     }))
   );
   const [lastDrawnNumber, setLastDrawnNumber] = useState<number | null>(null);
-  const [hasDrawnNumber, setHasDrawnNumber] = useState(false);
+  const [hasDrawnNumber] = useState(false);
 
   useEffect(() => {
     setItems((prevState) =>
@@ -45,7 +43,7 @@ export const TournamentDrawerPage: React.FC = () => {
   return (
     <Page title="Turneringstrekker!">
       <PageWrapper>
-        <p>Nummeret du trekker blir plassen din i turneringstreet!</p>
+        <p>Nummeret du trekker blir spillernummeret ditt i turneringstreet!</p>
         {lastDrawnNumber && (
           <CSSTransition
             in={hasDrawnNumber}
@@ -56,7 +54,7 @@ export const TournamentDrawerPage: React.FC = () => {
             }
           >
             <p>
-              Siste trukket nummer: <b>{lastDrawnNumber}</b>
+              Ditt spillernummer ble: <b>{lastDrawnNumber}</b>
             </p>
           </CSSTransition>
         )}

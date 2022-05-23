@@ -1,7 +1,7 @@
-import { Game } from "./TournamentPage";
 import React from "react";
 import { GameResult } from "./GameResult";
 import styled from "@emotion/styled";
+import { Game } from "../../firebase/types";
 
 type Props = {
   games: Game[];
