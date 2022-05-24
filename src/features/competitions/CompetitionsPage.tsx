@@ -6,8 +6,6 @@ import { Competition } from "./Competition";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
 import { useYearContext } from "../../context/YearContext";
-import { ToBeAnnounced } from "../../components/to-be-announced";
-import { SmallText } from "../../styles";
 import { device } from "../../utils/mixins";
 
 const CompetitionsContainer = styled.div`
@@ -17,10 +15,6 @@ const CompetitionsContainer = styled.div`
   @media ${device.FOR_PHONE_ONLY} {
     width: 90%;
   }
-`;
-
-const Link = styled.a`
-  color: white;
 `;
 
 const Competitions: React.FC = () => {
@@ -41,24 +35,9 @@ const Competitions: React.FC = () => {
 };
 
 const CompetitionsPage: React.FC = () => {
-  const { selectedYear } = useYearContext();
   return (
     <Page title="KONKURRANSER">
-      {selectedYear === "2022" ? (
-        <ToBeAnnounced>
-          <SmallText>
-            Neste års konkurranser klekkes for øyeblikket ut!
-          </SmallText>
-          <SmallText>
-            Forslag til leker kan sendes inn{" "}
-            <Link target="_blank" href="https://forms.gle/Nf25W8cBkwP9E8gs7">
-              her
-            </Link>
-          </SmallText>
-        </ToBeAnnounced>
-      ) : (
-        <Competitions />
-      )}
+      <Competitions />
     </Page>
   );
 };
