@@ -73,13 +73,11 @@ const Container: React.FC = () => {
                 text: "Sammendrag",
                 isActive: showLeaderboard,
                 onClick: () => setShowLeaderboard(true),
-                styles: { fontSize: "0.85em" },
               },
               {
                 text: "Konkurranser",
                 isActive: !showLeaderboard,
                 onClick: () => setShowLeaderboard(false),
-                styles: { fontSize: "0.85em" },
               },
             ]}
           />

@@ -78,9 +78,7 @@ const List = styled.ol`
   margin-right: 6px;
 `;
 
-const Span = styled.span`
-  font-size: 0.75em;
-`;
+const Span = styled.span``;
 
 type Props = {
   contestants: LeaderboardContestant[];

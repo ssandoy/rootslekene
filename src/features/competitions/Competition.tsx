@@ -13,6 +13,7 @@ const CompetitionContainer = styled.div`
   padding: 16px;
   border: 1px solid white;
   border-radius: 8px;
+  background-color: rgb(49, 54, 64);
 `;
 
 const CompetitionHeader = styled.h3`
@@ -31,7 +32,7 @@ const Text = styled.p`
   margin-bottom: 0;
 `;
 const SubText = styled.p`
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
 `;
 

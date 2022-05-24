@@ -25,7 +25,7 @@ const ListItem = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid white;
   background-color: #313640;
   margin: 8px;
   border-radius: 8px;
