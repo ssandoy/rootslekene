@@ -5,15 +5,12 @@ import { Link } from "react-router-dom";
 import { formatTournamentRoute } from "../../routes/routes";
 
 const CompetitionContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  margin-bottom: 48px;
-  align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-  padding: 16px;
+  margin-bottom: 32px;
+  padding: 36px 24px;
   border: 1px solid white;
-  border-radius: 8px;
-  background-color: rgb(49, 54, 64);
 `;
 
 const CompetitionHeader = styled.h3`
@@ -21,19 +18,36 @@ const CompetitionHeader = styled.h3`
   margin: 0;
 `;
 
+const SubCompetitionHeader = styled.h4`
+  font-size: 0.9rem;
+  color: white;
+  margin: 0;
+`;
+
 const TournamentContainer = styled.div`
-  margin: 8px;
+  margin-top: 8px;
 `;
 
 const Text = styled.p`
-  text-align: center;
   font-size: 16px;
   margin-top: 4px;
   margin-bottom: 0;
+  font-weight: lighter;
 `;
 const SubText = styled.p`
-  font-size: 14px;
-  text-align: center;
+  margin: 0;
+  font-weight: lighter;
+`;
+
+const FavoriteText = styled.p`
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
+  color: #282c34;
+  margin: 0;
+  padding: 6px;
+  background-color: white;
 `;
 
 type Props = {
@@ -44,20 +58,26 @@ export const Competition: React.FC<Props> = ({ competition }) => {
   return (
     <CompetitionContainer>
       <CompetitionHeader>
-        {competition.name} {competition.icon}
+        {competition.name.toUpperCase()} {competition.icon}
       </CompetitionHeader>
-      <Text>{competition.info}</Text>
-      <SubText>{competition.description}</SubText>
+      <Text>
+        {competition.info}&nbsp;
+        {competition.description}
+      </Text>
       {competition.subCompetition?.map((subComp) => (
-        <React.Fragment key={subComp.name}>
-          <Text>{subComp.name}</Text>
+        <div style={{ marginTop: 16 }} key={subComp.name}>
+          <SubCompetitionHeader>
+            {subComp.name.toUpperCase()}
+          </SubCompetitionHeader>
           <SubText>{subComp.description}</SubText>
-        </React.Fragment>
+        </div>
       ))}
-      {competition.bookieFavorite && (
-        <Text>
-          <b>Forhåndsfavoritt:</b> {competition.bookieFavorite}
-        </Text>
+      {competition.bookieFavorite ? (
+        <FavoriteText>
+          FAVORITT: &nbsp;{competition.bookieFavorite.toUpperCase()}
+        </FavoriteText>
+      ) : (
+        <FavoriteText>INGEN FAVORITT</FavoriteText>
       )}
       {competition.tournament && (
         <TournamentContainer>

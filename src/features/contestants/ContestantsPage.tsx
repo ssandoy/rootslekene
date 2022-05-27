@@ -41,7 +41,7 @@ const Contestants: React.FC = () => {
 const ContestantsPage: React.FC = () => {
   const { selectedYear } = useYearContext();
   return (
-    <Page title="Deltakere">
+    <Page title="DELTAKERE">
       {selectedYear === "2021" ? (
         <Contestants />
       ) : (

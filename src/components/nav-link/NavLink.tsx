@@ -15,10 +15,11 @@ const NavLink: React.FC<Props> = ({ route, title }: Props) => {
         color: "white",
         textDecoration: "none",
         margin: 8,
-        fontSize: "1.1rem",
+        fontSize: "0.9rem",
       }}
       activeStyle={{
         color: "white",
+        fontWeight: "bold",
         borderBottom: "1px solid white",
       }}
     >
