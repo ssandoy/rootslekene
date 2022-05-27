@@ -43,7 +43,7 @@ const Competitions: React.FC = () => {
 const CompetitionsPage: React.FC = () => {
   const { selectedYear } = useYearContext();
   return (
-    <Page title="Konkurranser">
+    <Page title="KONKURRANSER">
       {selectedYear === "2022" ? (
         <ToBeAnnounced>
           <SmallText>

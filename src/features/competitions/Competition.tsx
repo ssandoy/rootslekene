@@ -7,13 +7,9 @@ import { formatTournamentRoute } from "../../routes/routes";
 const CompetitionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 48px;
-  align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-  padding: 16px;
+  margin-bottom: 32px;
+  padding: 24px;
   border: 1px solid white;
-  border-radius: 8px;
-  background-color: rgb(49, 54, 64);
 `;
 
 const CompetitionHeader = styled.h3`
@@ -22,18 +18,23 @@ const CompetitionHeader = styled.h3`
 `;
 
 const TournamentContainer = styled.div`
-  margin: 8px;
+  margin-top: 8px;
 `;
 
 const Text = styled.p`
-  text-align: center;
   font-size: 16px;
   margin-top: 4px;
   margin-bottom: 0;
+  font-weight: lighter;
 `;
 const SubText = styled.p`
   font-size: 14px;
-  text-align: center;
+`;
+
+const FavoriteText = styled.p`
+  font-size: 16px;
+  color: #fca26a;
+  margin-bottom: 0;
 `;
 
 type Props = {
@@ -44,10 +45,12 @@ export const Competition: React.FC<Props> = ({ competition }) => {
   return (
     <CompetitionContainer>
       <CompetitionHeader>
-        {competition.name} {competition.icon}
+        {competition.name.toUpperCase()} {competition.icon}
       </CompetitionHeader>
-      <Text>{competition.info}</Text>
-      <SubText>{competition.description}</SubText>
+      <Text>
+        {competition.info}&nbsp;
+        {competition.description}
+      </Text>
       {competition.subCompetition?.map((subComp) => (
         <React.Fragment key={subComp.name}>
           <Text>{subComp.name}</Text>
@@ -55,9 +58,9 @@ export const Competition: React.FC<Props> = ({ competition }) => {
         </React.Fragment>
       ))}
       {competition.bookieFavorite && (
-        <Text>
-          <b>Forhåndsfavoritt:</b> {competition.bookieFavorite}
-        </Text>
+        <FavoriteText>
+          FORHÅNDSFAVORITT: &nbsp;{competition.bookieFavorite.toUpperCase()}
+        </FavoriteText>
       )}
       {competition.tournament && (
         <TournamentContainer>

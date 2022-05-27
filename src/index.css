@@ -8,9 +8,17 @@ body {
   background-color: #282c34;
 }
 
-p { color: white}
+h1, h2, h3 {
+  font-family: Alatsi, serif;
+}
+p { color: white; font-family: 'Gill Sans', sans-serif}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: 'Alatsi';
+  src: local('Alatsi'), url(./fonts/Alatsi-Regular.ttf);
 }

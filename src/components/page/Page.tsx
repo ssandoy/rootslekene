@@ -7,6 +7,7 @@ const PageDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 16px;
 `;
 
 const Title = styled.h2`
