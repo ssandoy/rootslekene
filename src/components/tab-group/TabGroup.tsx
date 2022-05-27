@@ -17,12 +17,11 @@ type TabButtonProps = {
 const TabButton = styled.button<Pick<TabButtonProps, "isActive">>`
   font-size: 1em;
   font-family: Alatsi, serif;
-  border: ${({ isActive }) =>
-    !isActive ? "2px solid white" : "2px solid transparent"};
+  border: ${({ isActive }) => (!isActive ? "1px solid white" : "none")};
   background-color: ${({ isActive }) => (isActive ? "white" : "transparent")};
   color: ${({ isActive }) => (isActive ? "#282c34" : "white")};
-  margin: 4px; // todo fix positioning
-  padding: 0 16px;
+  margin: 4px;
+  padding: 0 20px;
   height: 32px;
   :focus {
     outline: none;

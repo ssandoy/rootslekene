@@ -52,7 +52,6 @@ const NavContainer = styled.div`
   font-family: Alatsi, serif;
 `;
 
-// todo center tabgroup in desktop
 const App = () => {
   const { selectedYear, setSelectedYear } = useYearContext();
   return (

@@ -5,14 +5,21 @@ import { Link } from "react-router-dom";
 import { formatTournamentRoute } from "../../routes/routes";
 
 const CompetitionContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: 32px;
-  padding: 24px;
+  padding: 36px 24px;
   border: 1px solid white;
 `;
 
 const CompetitionHeader = styled.h3`
+  color: white;
+  margin: 0;
+`;
+
+const SubCompetitionHeader = styled.h4`
+  font-size: 0.9rem;
   color: white;
   margin: 0;
 `;
@@ -28,13 +35,19 @@ const Text = styled.p`
   font-weight: lighter;
 `;
 const SubText = styled.p`
-  font-size: 14px;
+  margin: 0;
+  font-weight: lighter;
 `;
 
 const FavoriteText = styled.p`
-  font-size: 16px;
-  color: #fca26a;
-  margin-bottom: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
+  color: #282c34;
+  margin: 0;
+  padding: 6px;
+  background-color: white;
 `;
 
 type Props = {
@@ -52,15 +65,19 @@ export const Competition: React.FC<Props> = ({ competition }) => {
         {competition.description}
       </Text>
       {competition.subCompetition?.map((subComp) => (
-        <React.Fragment key={subComp.name}>
-          <Text>{subComp.name}</Text>
+        <div style={{ marginTop: 16 }} key={subComp.name}>
+          <SubCompetitionHeader>
+            {subComp.name.toUpperCase()}
+          </SubCompetitionHeader>
           <SubText>{subComp.description}</SubText>
-        </React.Fragment>
+        </div>
       ))}
-      {competition.bookieFavorite && (
+      {competition.bookieFavorite ? (
         <FavoriteText>
-          FORHÅNDSFAVORITT: &nbsp;{competition.bookieFavorite.toUpperCase()}
+          FAVORITT: &nbsp;{competition.bookieFavorite.toUpperCase()}
         </FavoriteText>
+      ) : (
+        <FavoriteText>INGEN FAVORITT</FavoriteText>
       )}
       {competition.tournament && (
         <TournamentContainer>
