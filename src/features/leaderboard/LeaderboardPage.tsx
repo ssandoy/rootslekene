@@ -102,7 +102,7 @@ const LeaderboardPage: React.FC = () => {
   const { selectedYear } = useYearContext();
 
   return (
-    <Page title="Resultater">
+    <Page title="RESULTATER">
       {selectedYear === "2021" ? (
         <Container />
       ) : (
