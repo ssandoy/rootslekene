@@ -7,6 +7,7 @@ import Spinner from "../../components/spinner/Spinner";
 import { useYearContext } from "../../context/YearContext";
 import { Competition as CompetitionType } from "../../firebase/types";
 import {
+  calculatePlacement,
   getContestantPoints,
   LeaderboardContestant as ContestantType,
   LeaderboardContestant,
@@ -48,16 +49,24 @@ const Container: React.FC = () => {
 
   const sortedContestants: LeaderboardContestant[] = useMemo(() => {
     return sortLeaderboardContestants(
-      contestants?.map((contestant) => {
-        const totalPoints =
-          competitions?.reduce((acc, curr) => {
-            return acc + getContestantPoints(curr.results ?? [])(contestant);
-          }, 0) ?? 0;
-        return {
-          ...contestant,
-          totalPoints,
-        };
-      }) ?? []
+      contestants
+        ?.map((contestant, i, array) => {
+          const totalPoints =
+            competitions?.reduce((acc, curr) => {
+              return acc + getContestantPoints(curr.results ?? [])(contestant);
+            }, 0) ?? 0;
+          return {
+            ...contestant,
+            totalPoints,
+          };
+        })
+        .map((contestant, _, arr) => {
+          const placement = calculatePlacement(contestant)(arr);
+          return {
+            ...contestant,
+            placement,
+          };
+        }) ?? []
     );
   }, [competitions, contestants]);
 

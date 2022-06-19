@@ -40,6 +40,7 @@ const TabGroup: React.FC<Props> = ({ buttons }) => {
       {buttons.map((buttonProps) => {
         return (
           <TabButton
+            id={buttonProps.text}
             isActive={buttonProps.isActive}
             onClick={buttonProps.onClick}
             style={buttonProps.styles}

@@ -20,7 +20,7 @@ import {
   ROBERT_ID,
   SANDER_ID,
   SIMON_ID,
-} from "../../data/contestants";
+} from "../../data/contestants/contestants";
 
 const ContestantContainer = styled.div`
   display: flex;

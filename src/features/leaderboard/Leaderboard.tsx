@@ -85,7 +85,6 @@ type Props = {
   competitions: CompetitionType[];
 };
 
-// todo handle equal score for someone
 export const Leaderboard: React.FC<Props> = ({ contestants, competitions }) => {
   return (
     <List>
@@ -105,7 +104,7 @@ export const Leaderboard: React.FC<Props> = ({ contestants, competitions }) => {
       />
       {contestants.map((contestant, idx) => (
         <RowGrid key={contestant.id} ix={idx}>
-          <RankContainer rank={idx + 1}>{idx + 1}</RankContainer>
+          <RankContainer rank={idx + 1}>{contestant.placement}</RankContainer>
           <ContestantContainer>
             <ContestantImage src={getContestantImage(contestant.id)} />
           </ContestantContainer>

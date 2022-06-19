@@ -32,6 +32,7 @@ export const getContestantResults =
 
 export interface LeaderboardContestant extends Contestant {
   totalPoints: number;
+  placement: number;
 }
 
 export const sortLeaderboardContestants = (
@@ -41,6 +42,15 @@ export const sortLeaderboardContestants = (
     (contestantA, contestantB) =>
       contestantB.totalPoints - contestantA.totalPoints
   );
+
+export const calculatePlacement =
+  (contestant: LeaderboardContestant) =>
+  (contestants: LeaderboardContestant[]): number => {
+    return (
+      contestants.filter((c) => c.totalPoints > contestant.totalPoints).length +
+      1
+    );
+  };
 
 export const getLeaderboardTopScorer = (contestants: LeaderboardContestant[]) =>
   contestants.reduce(

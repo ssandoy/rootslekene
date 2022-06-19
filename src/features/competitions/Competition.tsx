@@ -9,7 +9,7 @@ const CompetitionContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 32px;
-  padding: 36px 24px;
+  padding: 24px 24px 36px;
   border: 1px solid white;
 `;
 
@@ -61,7 +61,9 @@ export const Competition: React.FC<Props> = ({ competition }) => {
         {competition.name.toUpperCase()} {competition.icon}
       </CompetitionHeader>
       <Text>
-        {competition.info}&nbsp;
+        {competition.info}
+        <br />
+        <br />
         {competition.description}
       </Text>
       {competition.subCompetition?.map((subComp) => (
