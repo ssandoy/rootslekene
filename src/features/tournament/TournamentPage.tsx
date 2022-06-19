@@ -49,6 +49,7 @@ const ResultsWrapper = styled.div`
   gap: 32px;
   @media ${device.FOR_PHONE_ONLY} {
     flex-direction: column;
+    gap: 48px;
   }
 `;
 export const TournamentPage = () => {
@@ -104,7 +105,12 @@ export const TournamentPage = () => {
             return <GameColumn games={columnGams} />;
           })}
         </ResultsWrapper>
-        {winner && <WinnerContainer>Vinner: {winner.name}</WinnerContainer>}
+        {winner && (
+          <WinnerContainer>
+            Vinner: {winner.name}
+            {selectedCompetition.icon}
+          </WinnerContainer>
+        )}
       </PageWrapper>
     </Page>
   );

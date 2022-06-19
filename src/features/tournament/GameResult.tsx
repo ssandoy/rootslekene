@@ -13,8 +13,7 @@ const GameContainer = styled.div`
   padding: 8px;
   background-color: #303540;
   color: white;
-  border: 1px solid wheat;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  border: 1px solid white;
   min-width: 150px;
 `;
 

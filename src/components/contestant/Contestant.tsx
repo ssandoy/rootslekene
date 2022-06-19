@@ -11,28 +11,33 @@ import {
   sander,
   simon,
 } from "../../images";
-import {
-  EIRIK_ID,
-  ESKIL_ID,
-  LP_ID,
-  MATHIAS_ID,
-  PEDER_ID,
-  ROBERT_ID,
-  SANDER_ID,
-  SIMON_ID,
-} from "../../data/contestants/contestants";
+import { ContestantNames } from "../../data/contestants/contestants";
 
 const ContestantContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: 16px;
   align-items: center;
+  padding: 42px 24px 24px 24px;
+  border: 1px solid white;
+`;
+
+const XPText = styled.p`
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 14px;
+  color: #282c34;
+  margin: 0;
+  padding: 6px;
+  background-color: white;
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 220px;
+  width: 250px;
   //align-items: center;
 `;
 
@@ -52,36 +57,41 @@ type Props = {
   showDetails?: boolean;
 };
 
-export function getContestantImage(imageUrl: number) {
+export function getContestantImage(contestantName: ContestantNames) {
   // todo store imagePath instead of this hardcoding
-  switch (imageUrl) {
-    case SANDER_ID:
+  switch (contestantName) {
+    case "Sander":
       return sander;
-    case EIRIK_ID:
+    case "Eirik":
       return gegg;
-    case LP_ID:
+    case "Larsi":
       return larsi;
-    case MATHIAS_ID:
+    case "Mathias":
       return mattis;
-    case ROBERT_ID:
+    case "Robert":
       return rob;
-    case SIMON_ID:
+    case "Simon":
       return simon;
-    case ESKIL_ID:
+    case "Eskil":
       return eskil;
-    case PEDER_ID:
+    case "Peder":
       return peder;
   }
-  return "";
 }
 
+// før og etter bilde mtp alkohol?
 export const Contestant: React.FC<Props> = ({
   contestant,
   showDetails = true,
 }) => {
   return (
     <ContestantContainer>
-      <ContestantImage src={getContestantImage(contestant.id)} />
+      <ContestantImage
+        src={getContestantImage(contestant.name as ContestantNames)}
+      />
+      {contestant.lastYearPlacement && (
+        <XPText>{contestant.lastYearPlacement}. PLASS I 2021</XPText>
+      )}
       <InfoWrapper>
         <Text style={{ textAlign: "center", marginTop: 12, marginBottom: 8 }}>
           {contestant.name}
@@ -97,6 +107,11 @@ export const Contestant: React.FC<Props> = ({
             <Text>
               <b>Svakhet:</b> {contestant.weakness}
             </Text>
+            {contestant.expectedPromille && (
+              <Text>
+                <b>xP (expected promille):</b> {contestant.expectedPromille}
+              </Text>
+            )}
           </>
         )}
       </InfoWrapper>
