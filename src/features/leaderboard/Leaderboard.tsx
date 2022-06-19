@@ -5,6 +5,7 @@ import { Competition as CompetitionType } from "../../firebase/types";
 import { LeaderboardContestant } from "./domain";
 import styled from "@emotion/styled";
 import { device } from "../../utils/mixins";
+import { ContestantNames } from "../../data/contestants/contestants";
 
 const TABLET_WIDTH = 100;
 const MOBILE_WIDTH = 60;
@@ -106,7 +107,9 @@ export const Leaderboard: React.FC<Props> = ({ contestants, competitions }) => {
         <RowGrid key={contestant.id} ix={idx}>
           <RankContainer rank={idx + 1}>{contestant.placement}</RankContainer>
           <ContestantContainer>
-            <ContestantImage src={getContestantImage(contestant.id)} />
+            <ContestantImage
+              src={getContestantImage(contestant.name as ContestantNames)}
+            />
           </ContestantContainer>
           <ResultsContainer>
             {getContestantResults(competitions)({

@@ -18,7 +18,7 @@ const Title = styled.h2`
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  max-width: 800px;
+  max-width: 1000px;
 `;
 
 type Props = {
