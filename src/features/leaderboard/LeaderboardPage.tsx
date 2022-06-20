@@ -13,8 +13,6 @@ import {
   LeaderboardContestant,
   sortLeaderboardContestants,
 } from "./domain";
-import { ToBeAnnounced } from "../../components/to-be-announced";
-import { SmallText } from "../../styles";
 import { Results } from "./Results";
 import { Leaderboard } from "./Leaderboard";
 import { TabGroup } from "../../components/tab-group";
@@ -23,10 +21,6 @@ const LeaderboardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Link = styled.a`
-  color: white;
 `;
 
 const Container: React.FC = () => {
@@ -108,25 +102,9 @@ const Container: React.FC = () => {
 };
 
 const LeaderboardPage: React.FC = () => {
-  const { selectedYear } = useYearContext();
-
   return (
     <Page title="RESULTATER">
-      {selectedYear === "2021" ? (
-        <Container />
-      ) : (
-        <ToBeAnnounced>
-          <SmallText>
-            Neste års konkurranser klekkes for øyeblikket ut!
-          </SmallText>
-          <SmallText>
-            Forslag til leker kan sendes inn{" "}
-            <Link target="_blank" href="https://forms.gle/Nf25W8cBkwP9E8gs7">
-              her
-            </Link>
-          </SmallText>
-        </ToBeAnnounced>
-      )}
+      <Container />
     </Page>
   );
 };
