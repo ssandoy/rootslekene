@@ -35,9 +35,8 @@ export const Intro2022: React.FC = () => {
         Nå dukker det opp en sultefóret og revansjesugen gjeng som får bryne seg
         på nye, enda større, leker i kampen om vandrepokalen og udødelig ære!
       </Text>
-      <Text>
-        Måtte den beste vinne. <Text>Lykke til!</Text>
-      </Text>
+      <Text>Måtte den beste vinne.</Text>
+      <Text>Lykke til!</Text>
       <Modal isOpen={modalOpen} onRequestClose={closeModal} style={modalStyles}>
         <Image src={rootsVandrern} />
         <p style={{ color: "black" }}>Rootsvandrer'n</p>
