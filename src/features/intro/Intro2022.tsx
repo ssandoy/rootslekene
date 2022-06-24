@@ -20,20 +20,20 @@ export const Intro2022: React.FC = () => {
         I fjor gjennomgikk deltakerne 7 jevne og neglebitende konkurranser.
         <br />
         Etter mye kriging, krangling og chugging så var det Larsi som kunne
-        smykke seg med tittelen som vinner av Rootslekene 2021! Han kunne dermed
-        ta med seg{" "}
+        smykke seg med tittelen som vinner av Rootslekene 2021 - og han kunne
+        dermed ta med seg{" "}
         <span
           style={{ textDecoration: "underline" }}
           onClick={() => setModalOpen(true)}
         >
           Rootsvandrer'n
         </span>{" "}
-        hjem til odel og eie for året.
+        hjem til odel og eie for året!
       </Text>
 
       <Text>
         Nå dukker det opp en sultefóret og revansjesugen gjeng som får bryne seg
-        på nye, enda større leker!
+        på nye, enda større, leker i kampen om vandrepokalen og udødelig ære!
       </Text>
       <Text>
         Måtte den beste vinne. <Text>Lykke til!</Text>
