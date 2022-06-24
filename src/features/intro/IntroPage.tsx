@@ -6,9 +6,13 @@ import BeerIcon from "./BeerIncon";
 import { Intro2021 } from "./Intro2021";
 import { useYearContext } from "../../context/YearContext";
 import { Intro2022 } from "./Intro2022";
+import { device } from "../../utils/mixins";
 
 const Container = styled.div`
-  width: 80vw;
+  @media ${device.FOR_PHONE_ONLY} {
+    width: 80vw;
+  }
+  width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;

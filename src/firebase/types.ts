@@ -45,5 +45,4 @@ export type Contestant = {
   weakness: string;
   lastYearPlacement?: number;
   expectedPromille?: number;
-  // todo noe mer
 };

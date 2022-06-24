@@ -10,7 +10,6 @@ import "./styles.css";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { Challenge } from "./Challenge";
 
-// todo merge
 const BACKGROUND_COLORS = [
   "#56CCF2",
   "#BB6BD9",

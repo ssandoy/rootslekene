@@ -28,7 +28,7 @@ const CONTESTANTS_2022 = [
     shortName: "PO",
     age: 29,
     strength: "Dworek og appelsinjuice",
-    weakness: "Øye-hånd-koordinasjon",
+    weakness: "Dørvakter",
     lastYearPlacement: 7,
     expectedPromille: 1.99,
   },

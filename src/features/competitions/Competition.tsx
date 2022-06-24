@@ -55,6 +55,7 @@ type Props = {
 };
 
 export const Competition: React.FC<Props> = ({ competition }) => {
+  const lineBreakDesc = competition?.description?.split("\n");
   return (
     <CompetitionContainer>
       <CompetitionHeader>
@@ -64,7 +65,9 @@ export const Competition: React.FC<Props> = ({ competition }) => {
         {competition.info}
         <br />
         <br />
-        {competition.description}
+        {lineBreakDesc?.map((line) => (
+          <Text>{line}</Text>
+        ))}
       </Text>
       {competition.subCompetition?.map((subComp) => (
         <div style={{ marginTop: 16 }} key={subComp.name}>
