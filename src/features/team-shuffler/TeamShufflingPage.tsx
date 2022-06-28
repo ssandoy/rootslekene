@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { Contestant } from "../../components/contestant";
 import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
 import { INDICES } from "../../firebase/hooks/types";
 import { Contestant as ContestantType } from "../../firebase/types";
+import Spinner from "../../components/spinner/Spinner";
 
 // todo move out
 const PageWrapper = styled.div`
@@ -44,11 +45,12 @@ const ButtonGroup = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: #ff9e5e;
-  border-color: transparent;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  background-color: #282c34;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.2em;
+  width: 80px;
+  height: 80px;
 `;
 
 const TeamShufflingPage: React.FC = () => {
@@ -59,6 +61,7 @@ const TeamShufflingPage: React.FC = () => {
   const [team2, setTeam2] = useState<ContestantType[]>([]);
   const [team4, setTeam4] = useState<ContestantType[]>([]);
   const [hasShuffled, setHasShuffled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function setTeams(setFourTeams: boolean) {
     const arr = [];
@@ -81,8 +84,18 @@ const TeamShufflingPage: React.FC = () => {
       setTeam4([]);
     }
 
-    setHasShuffled(true);
+    setIsLoading(true);
   }
+
+  useEffect(() => {
+    if (isLoading) {
+      setHasShuffled(false);
+      setTimeout(() => {
+        setHasShuffled(true);
+        setIsLoading(false);
+      }, 3000);
+    }
+  }, [isLoading]);
 
   return (
     <Page title="Lagvelger">
@@ -91,6 +104,12 @@ const TeamShufflingPage: React.FC = () => {
           <Button onClick={() => setTeams(true)}>2 v 2</Button>
           <Button onClick={() => setTeams(false)}>4 v 4</Button>
         </ButtonGroup>
+        {isLoading && (
+          <>
+            <p>Genererer lag...</p>
+            <Spinner size={50} />
+          </>
+        )}
         {!hasShuffled ? (
           <ContestantWrapper>
             {contestants?.map((contestant) => (

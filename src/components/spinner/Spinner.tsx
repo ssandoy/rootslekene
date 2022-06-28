@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const SpinnerContainer = styled.div`
+const SpinnerContainer = styled.div<Props>`
   margin-top: 8px;
   margin-left: 12px;
-  height: 20px;
-  width: 20px;
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-bottom: 1px solid;
+  height: ${({ size }) => `${size}px`};
+  width: ${({ size }) => `${size}px`};
+  border-left: 2px solid;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
   border-top: none;
-  border-radius: 20px;
+  border-radius: ${({ size }) => `${size}px`};
   border-color: white;
   -webkit-animation: spin 1s infinite linear;
   animation: spin 1s infinite linear;
@@ -32,8 +32,11 @@ const SpinnerContainer = styled.div`
   }
 `;
 
-const Spinner = () => {
-  return <SpinnerContainer />;
+type Props = {
+  size?: number;
+};
+const Spinner: React.FC<Props> = ({ size }) => {
+  return <SpinnerContainer size={size ?? 20} />;
 };
 
 export default Spinner;

@@ -17,7 +17,7 @@ export const Intro2022: React.FC = () => {
       </Text>
       <Text>Vi gjentar suksessen med Rootslekene!</Text>
       <Text>
-        I fjor gjennomgikk deltakerne 7 jevne og neglebitende konkurranser.
+        I fjor gjennomgikk deltakerne syv jevne og neglebitende konkurranser.
         <br />
         Etter mye kriging, krangling og chugging så var det Larsi som kunne
         smykke seg med tittelen som vinner av Rootslekene 2021 - og han kunne
