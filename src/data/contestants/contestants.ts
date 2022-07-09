@@ -50,7 +50,7 @@ const CONTESTANTS_2022 = [
     strength: "Ingen",
     weakness: "Blind-frisbee",
     lastYearPlacement: 8,
-    expectedPromille: 2,
+    expectedPromille: 2.0,
   },
   {
     id: EIRIK_ID,

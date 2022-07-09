@@ -2,13 +2,10 @@ import React, { useCallback, useMemo, useState } from "react";
 import { Page } from "../../components/page";
 import styled from "@emotion/styled";
 import { Wheel } from "../../components/wheel";
-import { Contestant as ContestantType } from "../../firebase/types";
-import { useFirestoreCollection } from "../../firebase/hooks/useFirestoreCollection";
-import { INDICES } from "../../firebase/hooks/types";
-import Spinner from "../../components/spinner/Spinner";
 import "./styles.css";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { Challenge } from "./Challenge";
+import { Stopwatch } from "../../components/stopwatch/Stopwatch";
 
 const BACKGROUND_COLORS = [
   "#56CCF2",
@@ -22,15 +19,49 @@ const BACKGROUND_COLORS = [
 ];
 
 const CHALLENGES = [
-  "Shot",
+  "Ta en shot",
   "Bånne en øl",
   "10 pushup",
-  "ICE-ing på tid",
-  "Todo",
+  "ICE",
+  "5 burpees",
   "Todo",
 ] as const;
 
 export type ChallengeType = typeof CHALLENGES[number];
+
+const Text = styled.p`
+  text-align: center;
+`;
+
+const StopwatchButton = styled.button`
+  background: red;
+  height: 50px;
+  width: 80px;
+  border: 2px solid white;
+  color: white;
+  font-size: 1rem;
+`;
+
+const StopwatchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+`;
+
+const DoneButton = styled.button`
+  height: 50px;
+  width: 80px;
+  background: lightgreen;
+  border: 2px solid lightgreen;
+  color: black;
+`;
+const DrawnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const PageWrapper = styled.div`
   display: flex;
@@ -39,93 +70,47 @@ const PageWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const getWinningContestant =
-  (winnerName: string) => (contestants: ContestantType[]) =>
-    contestants.find((contestant) => contestant.name === winnerName);
-
 export const ChallengeWheelPage: React.FC = () => {
-  const [drawnContestant, setDrawnContestant] = useState<ContestantType | null>(
-    null
-  );
-
   const [drawnChallenge, setDrawnChallenge] = useState<ChallengeType | null>(
     null
   );
+  const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
 
-  const [hasDrawnContestant, setHasDrawnContestant] = useState(false);
   const [hasDrawnChallenge, setHasDrawnChallenge] = useState(false);
-  const { isLoading, collectionData: contestants } =
-    useFirestoreCollection<ContestantType>(INDICES.CONTESTANTS_PROD_2021);
 
   const items = useMemo(() => {
-    return drawnContestant
-      ? CHALLENGES.map((challenge, i) => ({
-          name: challenge,
-          style: { backgroundColor: BACKGROUND_COLORS[i] },
-        }))
-      : contestants?.map((contestant, i) => {
-          return {
-            name: contestant.name,
-            style: {
-              backgroundColor: BACKGROUND_COLORS[i],
-              textColor: "white",
-            },
-          };
-        }) ?? [];
-  }, [drawnContestant, contestants]);
+    return CHALLENGES.map((challenge, i) => ({
+      name: challenge,
+      style: { backgroundColor: BACKGROUND_COLORS[i] },
+    }));
+  }, []);
 
   const handleStartSpinning = useCallback(() => {}, []);
 
-  const handleStopSpinning = useCallback(
-    (drawValue) => {
-      if (!drawnContestant) {
-        setDrawnContestant(
-          getWinningContestant(drawValue.name)(contestants ?? []) ?? null
-        );
-        setHasDrawnContestant(true);
-      } else {
-        setDrawnChallenge(drawValue.name);
-        setHasDrawnChallenge(true);
-      }
-    },
-    [drawnContestant, contestants]
-  );
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  const handleStopSpinning = useCallback((drawValue) => {
+    setDrawnChallenge(drawValue.name);
+    setHasDrawnChallenge(true);
+  }, []);
 
   return (
-    <Page title="Spin the wheel!">
+    <Page title="Øl-løypa!">
       <PageWrapper>
-        {!drawnContestant && <p>Hvem lander hjulet på da, troo?</p>}
-        {drawnContestant && (
-          <>
-            <SwitchTransition mode="out-in" key="drawn-contestant-transition">
-              <CSSTransition
-                in={hasDrawnChallenge}
-                classNames="side-transition"
-                key={hasDrawnChallenge ? "drawn-challenge" : "intro-text"}
-                addEndListener={(node, done) =>
-                  node.addEventListener("transitionend", done, false)
-                }
-              >
-                <div>
-                  {drawnChallenge ? (
-                    <Challenge challenge={drawnChallenge} />
-                  ) : (
-                    <p>
-                      Hva må <b>{drawnContestant.name}</b> gjøre daa?
-                    </p>
-                  )}
-                </div>
-              </CSSTransition>
-            </SwitchTransition>
-          </>
-        )}
+        <Text> Velkommen til første etappe!</Text>
+        <Text>
+          Gjør utfordringen som du lander på for å komme videre til neste
+          etappe. <br />
+          Når utfordringen er gjennomført trykker du på "Fullført"-knappen som
+          dukker opp før du løper videre.
+        </Text>
+        <Text>
+          Tiden starter når du trykker spin. <br />
+          Sistemann i mål har ansvaret for å klikke "STOPP" for å stoppe tiden
+          deres!
+        </Text>
+        <h4 style={{ marginBottom: 8 }}>Spin for å få din utfordring</h4>
         <SwitchTransition mode="out-in" key="spinning-wheel-transition">
           <CSSTransition
-            key={hasDrawnContestant ? "set" : "unset"}
+            key="set"
             classNames="side-transition"
             addEndListener={(node, done) =>
               node.addEventListener("transitionend", done, false)
@@ -135,6 +120,7 @@ export const ChallengeWheelPage: React.FC = () => {
               size="400"
               items={items}
               onStartSpinning={() => {
+                setIsStopwatchRunning(true);
                 handleStartSpinning();
               }}
               onStopSpinning={(winner) => {
@@ -143,6 +129,40 @@ export const ChallengeWheelPage: React.FC = () => {
             />
           </CSSTransition>
         </SwitchTransition>
+        <CSSTransition
+          in={hasDrawnChallenge}
+          classNames="side-transition"
+          timeout={5000}
+          addEndListener={(node, done) =>
+            node.addEventListener("transitionend", done, false)
+          }
+        >
+          <div>
+            {drawnChallenge && (
+              <DrawnContainer>
+                <Challenge challenge={drawnChallenge} />{" "}
+                <DoneButton
+                  onClick={() => {
+                    setDrawnChallenge(null);
+                    setHasDrawnChallenge(false);
+                  }}
+                >
+                  FULLFØRT
+                </DoneButton>
+              </DrawnContainer>
+            )}
+          </div>
+        </CSSTransition>
+        <StopwatchContainer>
+          <Stopwatch isRunning={isStopwatchRunning} />
+          <StopwatchButton
+            onClick={() => {
+              setIsStopwatchRunning(false);
+            }}
+          >
+            STOPP
+          </StopwatchButton>
+        </StopwatchContainer>
       </PageWrapper>
     </Page>
   );
