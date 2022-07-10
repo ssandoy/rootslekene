@@ -38,7 +38,6 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 250px;
-  //align-items: center;
 `;
 
 const ContestantImage = styled.img`
@@ -109,7 +108,8 @@ export const Contestant: React.FC<Props> = ({
             </Text>
             {contestant.expectedPromille && (
               <Text>
-                <b>xP (expected promille):</b> {contestant.expectedPromille}
+                <b>xP (expected promille): </b>
+                {contestant.expectedPromille.toFixed(2).slice(0, 4)}
               </Text>
             )}
           </>

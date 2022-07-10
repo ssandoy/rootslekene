@@ -32,14 +32,13 @@ export const TournamentDrawerPage: React.FC = () => {
     }))
   );
   const [lastDrawnNumber, setLastDrawnNumber] = useState<number | null>(null);
-  const [hasDrawnNumber] = useState(false);
+  const [hasDrawnNumber, setHasDrawnNumber] = useState(false);
 
   useEffect(() => {
     setItems((prevState) =>
       prevState.filter((item) => parseInt(item.name) !== lastDrawnNumber)
     );
   }, [lastDrawnNumber]);
-  // todo vise trukket nummer
   return (
     <Page title="Turneringstrekker!">
       <PageWrapper>
@@ -53,14 +52,12 @@ export const TournamentDrawerPage: React.FC = () => {
               node.addEventListener("transitionend", done, false)
             }
           >
-            <p>
-              Ditt spillernummer ble: <b>{lastDrawnNumber}</b>
-            </p>
+            <h3>Ditt spillernummer ble {lastDrawnNumber}</h3>
           </CSSTransition>
         )}
         <SwitchTransition mode="out-in" key="spinning-wheel-transition">
           <CSSTransition
-            key={lastDrawnNumber ? "set" : "unset"}
+            key={`set-${items.length}`}
             classNames="side-transition"
             addEndListener={(node, done) =>
               node.addEventListener("transitionend", done, false)
@@ -68,10 +65,12 @@ export const TournamentDrawerPage: React.FC = () => {
           >
             <Wheel
               size="400"
+              spinTime={4000}
               items={items}
               onStartSpinning={() => {}}
               onStopSpinning={(drawnNumber) => {
                 setLastDrawnNumber(parseInt(drawnNumber.name));
+                setHasDrawnNumber(false);
               }}
             />
           </CSSTransition>

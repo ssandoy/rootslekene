@@ -19,6 +19,7 @@ const Container = styled.div`
 
 type Props = {
   size: string;
+  spinTime?: number;
   items: WheelItem[];
   onStopSpinning?: (winner: WheelItem) => void;
   onStartSpinning?: () => void;
@@ -46,6 +47,7 @@ const getRotationClass = (hasStartedSpinning: boolean) =>
 
 const Wheel: React.FC<Props> = ({
   items,
+  spinTime = STOP_SPINNING_TIME,
   size,
   onStopSpinning,
   onStartSpinning,
@@ -68,7 +70,7 @@ const Wheel: React.FC<Props> = ({
         mustStopSpinning.current = false;
         onStopSpinning?.(items[winner.current]);
       }
-    }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME + 1000);
+    }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + spinTime + 1000);
   };
 
   // todo selected item as prop to outline it?
@@ -78,7 +80,7 @@ const Wheel: React.FC<Props> = ({
         <RotationContainer
           key={rotationKey.current}
           startSpinningTime={START_SPINNING_TIME}
-          stopSpinningTime={STOP_SPINNING_TIME}
+          stopSpinningTime={spinTime}
           continueSpinningTime={CONTINUE_SPINNING_TIME}
           className={getRotationClass(hasStartedSpinning)}
           startRotationDegrees={0}

@@ -106,7 +106,7 @@ const TeamShufflingPage: React.FC = () => {
         </ButtonGroup>
         {isLoading && (
           <>
-            <p>Genererer lag...</p>
+            <h3>Genererer lag...</h3>
             <Spinner size={50} />
           </>
         )}

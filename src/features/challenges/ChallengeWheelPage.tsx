@@ -20,16 +20,19 @@ const BACKGROUND_COLORS = [
 
 const CHALLENGES = [
   "Ta en shot",
-  "Bånne en øl",
+  "Chug en øl",
   "10 pushup",
-  "ICE",
   "5 burpees",
-  "Todo",
+  "Ta en shot",
+  "Chug en øl",
+  "10 pushup",
+  "5 burpees",
 ] as const;
 
 export type ChallengeType = typeof CHALLENGES[number];
 
 const Text = styled.p`
+  margin-bottom: 8px;
   text-align: center;
 `;
 
@@ -51,11 +54,11 @@ const StopwatchContainer = styled.div`
 `;
 
 const DoneButton = styled.button`
-  height: 50px;
-  width: 80px;
-  background: lightgreen;
-  border: 2px solid lightgreen;
-  color: black;
+  background: darkgreen;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px;
 `;
 const DrawnContainer = styled.div`
   display: flex;
@@ -75,6 +78,7 @@ export const ChallengeWheelPage: React.FC = () => {
     null
   );
   const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const [hasDrawnChallenge, setHasDrawnChallenge] = useState(false);
 
@@ -103,7 +107,6 @@ export const ChallengeWheelPage: React.FC = () => {
           dukker opp før du løper videre.
         </Text>
         <Text>
-          Tiden starter når du trykker spin. <br />
           Sistemann i mål har ansvaret for å klikke "STOPP" for å stoppe tiden
           deres!
         </Text>
@@ -129,6 +132,9 @@ export const ChallengeWheelPage: React.FC = () => {
             />
           </CSSTransition>
         </SwitchTransition>
+        {!isStopwatchRunning && !isGameOver && (
+          <Text>Tiden starter når du trykker spin.</Text>
+        )}
         <CSSTransition
           in={hasDrawnChallenge}
           classNames="side-transition"
@@ -157,6 +163,7 @@ export const ChallengeWheelPage: React.FC = () => {
           <Stopwatch isRunning={isStopwatchRunning} />
           <StopwatchButton
             onClick={() => {
+              setIsGameOver(true);
               setIsStopwatchRunning(false);
             }}
           >

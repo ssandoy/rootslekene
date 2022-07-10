@@ -55,9 +55,14 @@ const ResultContainer = styled.div`
   justify-content: center;
   padding: 4px;
   width: 32px;
+  height: 32px;
+  @media ${device.FOR_TABLET_PORTRAIT_UP} {
+    width: 38px;
+    height: 38px;
+  }
   background: #313640;
   align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
 `;
 
 const RowGrid = styled.li<{ ix: number }>`

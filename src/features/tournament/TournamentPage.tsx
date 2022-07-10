@@ -34,6 +34,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   color: white;
+  margin-bottom: 40px;
 `;
 
 const Heading = styled.h3`

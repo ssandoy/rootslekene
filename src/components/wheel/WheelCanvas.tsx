@@ -23,7 +23,7 @@ const drawWheel = ({
   if (canvas?.getContext("2d")) {
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     // todo move these outside
-    const fontSize = 16;
+    const fontSize = 18;
     ctx.font = `bold ${fontSize}px Helvetica, Arial`;
     ctx.clearRect(0, 0, 500, 500); // todo assert
     ctx.strokeStyle = "transparent";

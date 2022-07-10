@@ -70,7 +70,7 @@ const CONTESTANTS_2022 = [
     strength: "Sprit",
     weakness: "Chugging og shots",
     lastYearPlacement: 4,
-    expectedPromille: 1.8,
+    expectedPromille: 1.5,
   },
   {
     id: ROBERT_ID,
@@ -80,7 +80,7 @@ const CONTESTANTS_2022 = [
     strength: "Alkoholtoleranse",
     weakness: "Spikring",
     lastYearPlacement: 6,
-    expectedPromille: 1.75,
+    expectedPromille: 1.9,
   },
   {
     id: SIMON_ID,
@@ -90,7 +90,7 @@ const CONTESTANTS_2022 = [
     strength: "Chugging",
     weakness: "Damer",
     lastYearPlacement: 2,
-    expectedPromille: 0.75,
+    expectedPromille: 1.0,
   },
 ] as const;
 
