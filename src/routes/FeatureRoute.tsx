@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Countdown from "react-countdown";
 import styled from "@emotion/styled";
-import { useYearContext } from "../context/YearContext";
 
 interface Props {
   component: React.FC;
@@ -60,8 +59,7 @@ const FeatureRoute: React.FC<Props> = ({
   title,
   ...rest
 }: Props) => {
-  const { selectedYear } = useYearContext();
-  const shouldBeHidden = selectedYear === "2022";
+  const shouldBeHidden = false;
   return (
     <Route {...rest}>
       {(props) => (
