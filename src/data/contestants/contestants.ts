@@ -98,10 +98,7 @@ export type ContestantNames = typeof CONTESTANTS_2022[number]["name"];
 
 // todo fix order
 export const createContestants = (
-  index:
-    | INDICES.CONTESTANTS_PROD_2022
-    | INDICES.CONTESTANTS_TEST_2022
-    | INDICES.CONTESTANTS_TEST_2022
+  index: INDICES.CONTESTANTS_PROD_2022 | INDICES.CONTESTANTS_TEST_2022
 ) => {
   CONTESTANTS_2022.forEach((contestant) =>
     firestore.collection(index).doc(contestant.name).set(contestant)

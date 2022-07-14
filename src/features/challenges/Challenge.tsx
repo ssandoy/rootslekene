@@ -7,6 +7,7 @@ type Props = {
 };
 
 const ChallengeText = styled.p`
+  text-transform: uppercase;
   font-size: 1.25rem;
 `;
 

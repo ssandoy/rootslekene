@@ -40,7 +40,7 @@ const TeamHeading = styled.h2`
 
 const ButtonGroup = styled.div`
   display: flex;
-  width: 200px;
+  width: 240px;
   justify-content: space-around;
 `;
 
@@ -49,8 +49,8 @@ const Button = styled.button`
   border: 2px solid white;
   color: white;
   font-size: 1.2em;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 `;
 
 const TeamShufflingPage: React.FC = () => {

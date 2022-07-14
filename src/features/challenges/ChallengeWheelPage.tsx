@@ -21,12 +21,10 @@ const BACKGROUND_COLORS = [
 const CHALLENGES = [
   "Ta en shot",
   "Chug en øl",
-  "10 pushup",
-  "5 burpees",
+  "Bånn en ICE",
   "Ta en shot",
   "Chug en øl",
-  "10 pushup",
-  "5 burpees",
+  "Bånn en ICE",
 ] as const;
 
 export type ChallengeType = typeof CHALLENGES[number];
@@ -37,6 +35,9 @@ const Text = styled.p`
 `;
 
 const StopwatchButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: red;
   height: 50px;
   width: 80px;

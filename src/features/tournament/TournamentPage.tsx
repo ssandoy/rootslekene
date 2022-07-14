@@ -60,14 +60,14 @@ export const TournamentPage = () => {
   const competitionIndex =
     selectedYear === "2021"
       ? INDICES.COMPETITIONS_PROD_2021
-      : INDICES.COMPETITIONS_TEST_2022;
+      : INDICES.COMPETITIONS_PROD_2022;
   const { collectionData: competitions, isLoading } =
     useFirestoreCollection<CompetitionType>(competitionIndex);
 
   const contestantIndex =
     selectedYear === "2021"
       ? INDICES.CONTESTANTS_PROD_2021
-      : INDICES.CONTESTANTS_TEST_2022;
+      : INDICES.CONTESTANTS_PROD_2022;
   const { isLoading: isContestantsLoading, collectionData: contestants } =
     useFirestoreCollection<ContestantType>(contestantIndex);
 

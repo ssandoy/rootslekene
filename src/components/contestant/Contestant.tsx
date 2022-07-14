@@ -37,13 +37,12 @@ const XPText = styled.p`
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
 `;
 
 const ContestantImage = styled.img`
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
 `;
 
 const Text = styled.p`

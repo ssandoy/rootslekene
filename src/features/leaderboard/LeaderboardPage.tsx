@@ -13,8 +13,6 @@ import {
   LeaderboardContestant,
   sortLeaderboardContestants,
 } from "./domain";
-import { ToBeAnnounced } from "../../components/to-be-announced";
-import { SmallText } from "../../styles";
 import { Results } from "./Results";
 import { Leaderboard } from "./Leaderboard";
 import { TabGroup } from "../../components/tab-group";
@@ -25,20 +23,16 @@ const LeaderboardWrapper = styled.div`
   align-items: center;
 `;
 
-const Link = styled.a`
-  color: white;
-`;
-
 const Container: React.FC = () => {
   const { selectedYear } = useYearContext();
   const competitionIndex =
     selectedYear === "2021"
-      ? INDICES.COMPETITIONS_TEST_2021
-      : INDICES.COMPETITIONS_TEST_2022;
+      ? INDICES.COMPETITIONS_PROD_2021
+      : INDICES.COMPETITIONS_PROD_2022;
   const contestantIndex =
     selectedYear === "2021"
-      ? INDICES.CONTESTANTS_TEST_2021
-      : INDICES.CONTESTANTS_TEST_2022;
+      ? INDICES.CONTESTANTS_PROD_2021
+      : INDICES.CONTESTANTS_PROD_2022;
   const [showLeaderboard, setShowLeaderboard] = useState(true);
   const { isLoading: isLoadingCompetitions, collectionData: competitions } =
     useFirestoreCollection<CompetitionType>(competitionIndex);
@@ -108,25 +102,9 @@ const Container: React.FC = () => {
 };
 
 const LeaderboardPage: React.FC = () => {
-  const { selectedYear } = useYearContext();
-
   return (
     <Page title="RESULTATER">
-      {selectedYear === "2021" ? (
-        <Container />
-      ) : (
-        <ToBeAnnounced>
-          <SmallText>
-            Neste års konkurranser klekkes for øyeblikket ut!
-          </SmallText>
-          <SmallText>
-            Forslag til leker kan sendes inn{" "}
-            <Link target="_blank" href="https://forms.gle/Nf25W8cBkwP9E8gs7">
-              her
-            </Link>
-          </SmallText>
-        </ToBeAnnounced>
-      )}
+      <Container />
     </Page>
   );
 };

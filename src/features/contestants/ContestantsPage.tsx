@@ -8,8 +8,6 @@ import { INDICES } from "../../firebase/hooks/types";
 import Spinner from "../../components/spinner/Spinner";
 import { device } from "../../utils/mixins";
 import { useYearContext } from "../../context/YearContext";
-import { ToBeAnnounced } from "../../components/to-be-announced";
-import { SmallText } from "../../styles";
 
 const ContestantsWrapper = styled.div`
   display: flex;
@@ -25,7 +23,7 @@ const Contestants: React.FC = () => {
   const contestantIndex =
     selectedYear === "2021"
       ? INDICES.CONTESTANTS_PROD_2021
-      : INDICES.CONTESTANTS_TEST_2022;
+      : INDICES.CONTESTANTS_PROD_2022;
   const { isLoading, collectionData: contestants } =
     useFirestoreCollection<ContestantType>(contestantIndex);
   return (
@@ -39,16 +37,9 @@ const Contestants: React.FC = () => {
 };
 
 const ContestantsPage: React.FC = () => {
-  const { selectedYear } = useYearContext();
   return (
     <Page title="DELTAKERE">
-      {selectedYear === "2021" ? (
-        <Contestants />
-      ) : (
-        <ToBeAnnounced>
-          <SmallText>Oppdatert deltakerliste og informasjon kommer</SmallText>
-        </ToBeAnnounced>
-      )}
+      <Contestants />
     </Page>
   );
 };
