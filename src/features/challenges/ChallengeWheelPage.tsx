@@ -20,14 +20,14 @@ const BACKGROUND_COLORS = [
 
 const CHALLENGES = [
   "Ta en shot",
-  "Chug en øl",
   "Bånn en ICE",
   "Ta en shot",
-  "Chug en øl",
+  "Bånn en ICE",
+  "Ta en shot",
   "Bånn en ICE",
 ] as const;
 
-export type ChallengeType = typeof CHALLENGES[number];
+export type ChallengeType = (typeof CHALLENGES)[number];
 
 const Text = styled.p`
   margin-bottom: 8px;
@@ -98,7 +98,7 @@ export const ChallengeWheelPage: React.FC = () => {
   }, []);
 
   return (
-    <Page title="Øl-løypa!">
+    <Page title="Øl-løypa vol 3.0 🍻">
       <PageWrapper>
         <Text> Velkommen til første etappe!</Text>
         <Text>
